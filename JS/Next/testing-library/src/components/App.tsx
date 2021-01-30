@@ -1,5 +1,3 @@
-import React from 'react'
-
 const title = 'Hello React'
 
 const App = () => {
