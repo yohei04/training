@@ -5,7 +5,7 @@ export const convert = async (base: string, destination: string) => {
     console.log(data.rates[destination])
     return data.rates[destination]
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return null
   }
 }
