@@ -11,3 +11,9 @@ test('the pizza data is correct', () => {
     'Sicilian Pizza',
   ])
 })
+
+test('mock implementation of a basic function', () => {
+  const mock = jest.fn(() => 'I am a mock function')
+  expect(mock()).toBe('I am a mock function')
+  expect(mock).toHaveBeenCalledTimes(1)
+})
