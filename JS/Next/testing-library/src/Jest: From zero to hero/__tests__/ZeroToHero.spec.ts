@@ -19,7 +19,9 @@ test('mock implementation of a basic function', () => {
 })
 
 test('mock return value of a function one time', () => {
-  const mock = jest.fn().mockReturnValueOnce('Hello').mockReturnValueOnce('there')
+  const mock = jest.fn()
+
+  mock.mockReturnValueOnce('Hello').mockReturnValueOnce('there')
 
   expect(mock()).toBe('Hello')
   expect(mock()).toBe('there')
@@ -27,4 +29,34 @@ test('mock return value of a function one time', () => {
 
   mock('Hello', 'there', 'Steve')
   expect(mock).toHaveBeenCalledWith('Hello', 'there', 'Steve')
+})
+
+test('mock implementation of a function', () => {
+  const mock = jest.fn().mockImplementation((hoge) => `United Kingdom ${hoge}`)
+  expect(mock('is the Best')).toBe('United Kingdom is the Best')
+})
+
+test('spying using original implementation', () => {
+  const pizza = {
+    name: (n: string) => `Pizza name: ${n}`,
+  }
+
+  const spy = jest.spyOn(pizza, 'name')
+  expect(pizza.name('Cheese')).toBe('Pizza name: Cheese')
+  expect(spy).toHaveBeenCalledWith('Cheese')
+})
+
+test('another spy', () => {
+  const hoge = {
+    myMethod: () => 33,
+  }
+
+  const spy_myMethod = jest.spyOn(hoge, 'myMethod').mockImplementation(() => 25)
+  const result = hoge.myMethod()
+  expect(result).toBe(25)
+  expect(spy_myMethod).toHaveBeenCalledTimes(1)
+
+  spy_myMethod.mockRestore()
+  const originalResult = hoge.myMethod()
+  expect(originalResult).toBe(33)
 })
