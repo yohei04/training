@@ -60,3 +60,18 @@ test('another spy', () => {
   const originalResult = hoge.myMethod()
   expect(originalResult).toBe(33)
 })
+
+test('expect a promise to resolve', async () => {
+  const user = {
+    getFullName: jest.fn((name: string) => Promise.resolve(name)),
+  }
+  await expect(user.getFullName('Karl Hadwen')).resolves.toBe('Karl Hadwen')
+})
+
+test('expect a promise to reject', async () => {
+  const user = {
+    getFullName: jest.fn(() => Promise.reject(new Error('Something went wrong'))),
+  }
+
+  await expect(user.getFullName()).rejects.toThrowError('Something went wrong')
+})
