@@ -61,6 +61,18 @@ test('another spy', () => {
   expect(originalResult).toBe(33)
 })
 
+// test('a method will be called from another method', () => {
+//   expect(numbers.calc(2, 3)).toBe(4)
+
+//   const spyAdd = spyOn(numbers, 'add')
+//   const spyMulti = spyOn(numbers, 'multi')
+//   numbers.calc(1, 3)
+//   expect(spyAdd).toHaveBeenCalled
+//   expect(spyMulti).toHaveBeenCalledTimes(0)
+
+//   expect(numbers.add).toHaveBeenCalledTimes(1)
+// })
+
 test('expect a promise to resolve', async () => {
   const user = {
     getFullName: jest.fn((name: string) => Promise.resolve(name)),
@@ -74,4 +86,30 @@ test('expect a promise to reject', async () => {
   }
 
   await expect(user.getFullName()).rejects.toThrowError('Something went wrong')
+})
+
+import * as app from '../app'
+import * as math from '../math'
+
+test('calls math.add', () => {
+  const addMock = jest.spyOn(math, 'add')
+
+  // calls the original implementation
+  expect(app.doAdd(1, 2)).toEqual(3)
+
+  // and the spy stores the calls to add
+  expect(addMock).toHaveBeenCalledWith(1, 2)
+  expect(math.add).toHaveBeenCalledTimes(1)
+})
+
+test('calls math.add2', () => {
+  const addMock: jest.SpyInstance = jest.spyOn(math, 'add')
+
+  // override the implementation
+  addMock.mockImplementation(() => 'mock')
+  expect(app.doAdd(1, 2)).toEqual('mock')
+
+  // restore the original implementation
+  addMock.mockRestore()
+  expect(app.doAdd(1, 2)).toEqual(3)
 })
