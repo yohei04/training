@@ -7,7 +7,7 @@ import { convert } from '../../utils/currency'
 // )
 
 beforeEach(() => {
-  fetch.mockClear()
+  fetchMock.mockClear()
 })
 
 // test('finds exchange', async () => {
@@ -27,7 +27,7 @@ beforeEach(() => {
 // })
 
 test('finds exchange with jest-fetch-mock', async () => {
-  fetch.mockResponseOnce(JSON.stringify({ rates: { CAD: 1.42 } }))
+  fetchMock.mockResponseOnce(JSON.stringify({ rates: { CAD: 1.42 } }))
 
   const rate = await convert('USD', 'CAD')
 
@@ -36,7 +36,7 @@ test('finds exchange with jest-fetch-mock', async () => {
 })
 
 test('returns null when exception with jest-fetch-mock', async () => {
-  fetch.mockReject(() => Promise.reject('API id down'))
+  fetchMock.mockReject(() => Promise.reject('API id down'))
 
   const rate = await convert('USD', 'CAD')
 
