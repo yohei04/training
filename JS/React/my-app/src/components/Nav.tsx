@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { IMovieContext, MovieContext } from './MovieProvider';
+import { useContext } from 'react';
+import { MovieContext } from './MovieProvider';
 
 const Nav = () => {
   const { movies } = useContext(MovieContext);
