@@ -11,6 +11,7 @@ export interface IMovie {
 export interface IMovieContext {
   movies: IMovie[];
   addMovie: (name: string, price: string) => void;
+  removeMovie: (id: number) => void;
 }
 
 export const MovieContext = createContext<IMovieContext>(undefined!);
@@ -41,8 +42,12 @@ const MovieProvider: React.FC<MovieProviderProps> = (props) => {
     ]);
   };
 
+  const removeMovie = (id: number) => {
+    setMovies(movies.filter((movie) => movie.id !== id));
+  };
+
   return (
-    <MovieContext.Provider value={{ movies, addMovie }}>
+    <MovieContext.Provider value={{ movies, addMovie, removeMovie }}>
       {props.children}
     </MovieContext.Provider>
   );
