@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
 import Movie from './Movie';
-import { IMovieContext, MovieContext } from './MovieProvider';
+import { MovieContext } from './MovieProvider';
 
-interface MovieListProps { }
+interface MovieListProps {}
 
-
-const MovieList: React.FC<MovieListProps> = ({ }) => {
-  
-  const { movies, setMovies } = useContext(MovieContext) as IMovieContext;
+const MovieList: React.FC<MovieListProps> = ({}) => {
+  const { movies } = useContext(MovieContext);
 
   return (
     <>

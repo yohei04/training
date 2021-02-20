@@ -1,8 +1,6 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react';
 
-interface MovieProviderProps {
-  
-}
+interface MovieProviderProps {}
 
 export interface IMovie {
   name: string;
@@ -12,10 +10,10 @@ export interface IMovie {
 
 export interface IMovieContext {
   movies: IMovie[];
-  setMovies: React.Dispatch<React.SetStateAction<IMovie[]>>;
+  addMovie: (name: string, price: string) => void;
 }
 
-export const MovieContext = createContext<IMovieContext | undefined>(undefined);
+export const MovieContext = createContext<IMovieContext>(undefined!);
 
 const MovieProvider: React.FC<MovieProviderProps> = (props) => {
   const [movies, setMovies] = useState([
@@ -36,12 +34,18 @@ const MovieProvider: React.FC<MovieProviderProps> = (props) => {
     },
   ]);
 
+  const addMovie = (name: string, price: string) => {
+    setMovies([
+      ...movies,
+      { name, price, id: movies[movies.length - 1].id + 1 },
+    ]);
+  };
+
   return (
-    <MovieContext.Provider value={{movies, setMovies}}>
+    <MovieContext.Provider value={{ movies, addMovie }}>
       {props.children}
     </MovieContext.Provider>
-    
   );
-}
+};
 
-export default MovieProvider
+export default MovieProvider;
