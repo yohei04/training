@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { MovieContext } from './MovieProvider';
+import { ActionType } from './MovieReducer';
 
 interface AddMovieProps {}
 
@@ -7,16 +8,20 @@ const AddMovie: React.FC<AddMovieProps> = ({}) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
 
-  const { addMovie } = useContext(MovieContext);
+  const { dispatch } = useContext(MovieContext);
 
   const onSubmit = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.preventDefault();
     if (name && price) {
-      addMovie(name, price);
+      dispatch({
+        type: ActionType.ADD_MOVIE,
+        payload: { name, price, id: Math.floor(Math.random() * 1000) },
+      });
+      // addMovie(name, price);
       setName('');
       setPrice('');
     } else {
-      return
+      return;
     }
   };
 
