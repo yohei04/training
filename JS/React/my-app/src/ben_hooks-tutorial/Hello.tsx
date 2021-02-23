@@ -6,10 +6,15 @@ interface HelloProps {
   increment: () => void;
 }
 
-const Hello: React.FC<HelloProps> = React.memo(({ increment }) => {
+const Hello: React.FC<HelloProps> = ({ increment }) => {
   useCountRenders();
 
-  return <button onClick={increment}>hello</button>;
-});
+  return (
+    <div>
+      <h1>Hello コンポーネント</h1>
+      <button onClick={increment}>hello</button>
+    </div>
+  );
+};
 
-export default Hello;
+export default React.memo(Hello);
