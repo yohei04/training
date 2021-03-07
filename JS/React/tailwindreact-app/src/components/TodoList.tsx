@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import TodoItem from './TodoItem';
 
 interface TodoListProps {}
 
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
   completed: boolean;
@@ -23,26 +24,17 @@ const TodoList: React.FC<TodoListProps> = ({}) => {
         completed: d.completed,
       }));
       setTodos(formatData);
-      //   .then((response) => response.json())
-      //   .then(json => setTodos(json))
-      // // .then((json) => console.log(json));
     };
 
     fetchTodos();
   }, []);
-
-  console.log(todos);
+  
   return (
-    <>
-      <div className="todoList">
-        {todos.map((t) => (
-          <p>
-            <span className="mr-2">{t.id}</span>
-            <span>{t.title}</span>
-          </p>
-        ))}
-      </div>
-    </>
+    <div className="todoList">
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
+    </div>
   );
 };
 
