@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import TodoForm from './TodoForm';
+import TodoItem from './TodoItem';
 import TodoList from './TodoList';
 import TodoTitle from './TodoTitle';
 
@@ -14,5 +15,6 @@ const Todo = ({ children }: TodoProps) => {
 Todo.Title = TodoTitle;
 Todo.Form = TodoForm
 Todo.List = TodoList
+Todo.Item = TodoItem
 
 export default Todo;

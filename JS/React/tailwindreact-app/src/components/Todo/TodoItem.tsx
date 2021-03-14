@@ -7,7 +7,7 @@ interface TodoItemProps {
   deleteTodo: (id: number) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, deleteTodo }) => {
+const TodoItem = ({ todo, deleteTodo }: TodoItemProps) => {
   return (
     <p onClick={() => deleteTodo(todo.id)}>
       <span className="mr-2">{todo.id}</span>
