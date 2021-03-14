@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TodoForm, TodoList } from './components/Todo';
+import { TodoForm, TodoList, TodoTitle } from './components/Todo';
 
 export interface Todo {
   id: number;
@@ -17,7 +17,7 @@ function App() {
   };
 
   const deleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   // useEffect(() => {
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <>
-      <div className="px-4 pb-4">TODO TODO</div>
+      <TodoTitle />
       <TodoForm addTodo={addTodo} />
       <TodoList todos={todos} deleteTodo={deleteTodo} />
     </>
