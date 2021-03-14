@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { Todo } from '../App';
 
 interface TodoFormProps {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  addTodo: (title: string) => void;
 }
 
-const TodoForm: React.FC<TodoFormProps> = ({ todos, setTodos }) => {
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   const [title, setTitle] = useState('');
-  const addTodo = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     if (title !== '') {
-      setTodos([
-        ...todos,
-        { id: todos.length + 1, title: title, completed: false },
-      ]);
+      addTodo(title);
       setTitle('');
     } else {
       return;
@@ -21,14 +17,14 @@ const TodoForm: React.FC<TodoFormProps> = ({ todos, setTodos }) => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form>
       <input
         className="border-gray-400 border-solid border"
         type="text"
         value={title}
-        onChange={(e: any) => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
       />
-      <button onClick={addTodo}>add todo</button>
+      <button onClick={handleSubmit}>add todo</button>
     </form>
   );
 };

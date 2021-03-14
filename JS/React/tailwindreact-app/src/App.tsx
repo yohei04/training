@@ -10,6 +10,12 @@ export interface Todo {
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const addTodo = (title: string) => {
+    setTodos([
+      ...todos,
+      { id: todos.length + 1, title: title, completed: false },
+    ]);
+  };
 
   // useEffect(() => {
   //   const fetchTodos = async () => {
@@ -24,15 +30,14 @@ function App() {
   //     }));
   //     setTodos(formatData);
   //   };
-
+
   //   fetchTodos();
   // }, []);
 
-
   return (
     <>
-      <div className="px-4 pb-4">hello world</div>
-      <TodoForm todos={todos} setTodos={setTodos} />
+      <div className="px-4 pb-4">TODO TODO</div>
+      <TodoForm addTodo={addTodo} />
       <TodoList todos={todos} />
     </>
   );
