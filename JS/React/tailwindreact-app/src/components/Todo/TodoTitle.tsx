@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface TodoTitleProps {
+export interface TodoTitleProps {
   
 }
 

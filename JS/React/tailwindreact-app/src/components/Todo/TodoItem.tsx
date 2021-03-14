@@ -1,9 +1,9 @@
 import React from 'react';
-import { Todo } from '../../App';
+import { ITodo } from '../../App';
 
 
 interface TodoItemProps {
-  todo: Todo;
+  todo: ITodo;
   deleteTodo: (id: number) => void;
 }
 

@@ -1,9 +1,9 @@
 import { TodoItem } from '.';
-import { Todo } from '../../App';
+import { ITodo } from '../../App';
 
 
 interface TodoListProps {
-  todos: Todo[];
+  todos: ITodo[];
   deleteTodo: (id: number) => void;
 }
 

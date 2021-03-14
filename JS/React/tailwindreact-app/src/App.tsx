@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { TodoForm, TodoList, TodoTitle } from './components/Todo';
+import { Todo, TodoForm, TodoList } from './components/Todo';
 
-export interface Todo {
+export interface ITodo {
   id: number;
   title: string;
   completed: boolean;
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
   const addTodo = (title: string) => {
     setTodos([
       ...todos,
@@ -38,11 +38,11 @@ function App() {
   // }, []);
 
   return (
-    <>
-      <TodoTitle />
+    <Todo>
+      <Todo.Title />
       <TodoForm addTodo={addTodo} />
       <TodoList todos={todos} deleteTodo={deleteTodo} />
-    </>
+    </Todo>
   );
 }
 
