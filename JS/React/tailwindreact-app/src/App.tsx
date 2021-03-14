@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Todo, TodoList } from './components/Todo';
+import { Todo } from './components/Todo';
 
 export interface ITodo {
   id: number;
@@ -41,7 +41,7 @@ function App() {
     <Todo>
       <Todo.Title />
       <Todo.Form addTodo={addTodo} />
-      <TodoList todos={todos} deleteTodo={deleteTodo} />
+      <Todo.List todos={todos} deleteTodo={deleteTodo} />
     </Todo>
   );
 }

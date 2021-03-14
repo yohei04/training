@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 import TodoTitle from './TodoTitle';
 
 interface TodoProps {
@@ -12,5 +13,6 @@ const Todo = ({ children }: TodoProps) => {
 
 Todo.Title = TodoTitle;
 Todo.Form = TodoForm
+Todo.List = TodoList
 
 export default Todo;

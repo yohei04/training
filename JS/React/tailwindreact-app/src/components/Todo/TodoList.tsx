@@ -7,7 +7,7 @@ interface TodoListProps {
   deleteTodo: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, deleteTodo }) => {
+const TodoList = ({ todos, deleteTodo }: TodoListProps) => {
   return (
     <div className="todoList">
       {todos.map((todo) => (
