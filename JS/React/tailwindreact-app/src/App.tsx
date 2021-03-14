@@ -17,6 +17,10 @@ function App() {
     ]);
   };
 
+  const deleteTodo = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id))
+  };
+
   // useEffect(() => {
   //   const fetchTodos = async () => {
   //     const fetchData = await fetch(
@@ -30,7 +34,7 @@ function App() {
   //     }));
   //     setTodos(formatData);
   //   };
-
+
   //   fetchTodos();
   // }, []);
 
@@ -38,7 +42,7 @@ function App() {
     <>
       <div className="px-4 pb-4">TODO TODO</div>
       <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} deleteTodo={deleteTodo} />
     </>
   );
 }
