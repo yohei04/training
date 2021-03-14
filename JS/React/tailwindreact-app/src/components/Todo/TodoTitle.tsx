@@ -1,10 +1,4 @@
-import React from 'react'
-
-export interface TodoTitleProps {
-  
-}
-
-const TodoTitle: React.FC<TodoTitleProps> = ({}) => {
+const TodoTitle = () => {
   return <h2 className="px-4 pb-4">TODO TODO</h2>;
 }
 

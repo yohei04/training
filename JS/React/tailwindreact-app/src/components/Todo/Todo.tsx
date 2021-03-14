@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import TodoForm from './TodoForm';
 import TodoTitle from './TodoTitle';
-import { TodoTitleProps } from './TodoTitle';
 
 interface TodoProps {
-  Title: React.FC<TodoTitleProps>;
+  children: ReactNode;
 }
 
-const Todo: React.FC & TodoProps = ({ children }) => {
+const Todo = ({ children }: TodoProps) => {
   return <div>{children}</div>;
 };
 
 Todo.Title = TodoTitle;
+Todo.Form = TodoForm
 
 export default Todo;
