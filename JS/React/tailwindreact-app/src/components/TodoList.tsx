@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { Todo } from '../App';
 import TodoItem from './TodoItem';
 
-interface TodoListProps {}
-
-export interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
+interface TodoListProps {
+  todos: Todo[];
 }
 
-const TodoList: React.FC<TodoListProps> = ({}) => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const fetchData = await fetch(
-        'https://jsonplaceholder.typicode.com/todos'
-      );
-      const data: Todo[] = await fetchData.json();
-      const formatData = data.map((d) => ({
-        id: d.id,
-        title: d.title,
-        completed: d.completed,
-      }));
-      setTodos(formatData);
-    };
-
-    fetchTodos();
-  }, []);
-  
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <div className="todoList">
       {todos.map((todo) => (
