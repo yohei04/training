@@ -1,6 +1,6 @@
 
 import { Todo } from '.';
-import { ITodo } from '../../App';
+import { ITodo } from './App';
 
 
 interface TodoListProps {
