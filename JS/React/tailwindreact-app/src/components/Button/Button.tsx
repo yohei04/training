@@ -11,14 +11,14 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ bgColor, textColor, color, size }) => {
   return (
     <>
-      <button className={classNames(textColor, bgColor)}>ボタンです</button>
+      {/* <button className={classNames(textColor, bgColor)}>ボタンです</button>
       <button className="text-green-400 bg-yellow-200">
         propsなしボタンです
-      </button>
+      </button> */}
       <button
         className={classNames(
-          'm-auto text-gray-800 active:bg-red-600 border border-gray-300 rounded-2xl focus:outline-none shadow-lg transform hover:-translate-y-0.5 transition duration-100',
-          { 'bg-red-100': color === 'primary' },
+          'text-gray-800 active:bg-red-600 border border-gray-300 rounded-2xl focus:outline-none shadow-lg transform hover:-translate-y-0.5 transition duration-100',
+          { 'bg-blue-300 hover:bg-blue-200': color === 'primary' },
           {
             'bg-red-500 hover:bg-red-400': color === 'secondary',
           },
