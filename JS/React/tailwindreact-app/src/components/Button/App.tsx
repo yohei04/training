@@ -6,7 +6,11 @@ interface AppProps {}
 const App: React.FC<AppProps> = ({}) => {
   return (
     <>
-      <Button bgColor={'bg-pink-900'} textColor={'text-gray-200'} />
+      <Button
+        bgColor={'bg-pink-900'}
+        textColor={'text-gray-200'}
+        color={'secondary'}
+      />
     </>
   );
 };
