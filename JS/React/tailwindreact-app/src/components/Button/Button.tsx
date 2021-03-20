@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React from 'react';
 
 interface ButtonProps {
-  bgColor: string;
-  textColor: string;
+  bgColor: 'bg-yellow-200' | 'bg-pink-900';
+  textColor: 'text-green-400' | 'text-gray-200';
 }
 
 const Button: React.FC<ButtonProps> = ({ bgColor, textColor }) => {

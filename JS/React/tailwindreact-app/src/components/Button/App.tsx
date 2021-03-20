@@ -1,17 +1,14 @@
-import React from 'react'
+import React from 'react';
 import { Button } from '.';
 
-
-interface AppProps {
-  
-}
+interface AppProps {}
 
 const App: React.FC<AppProps> = ({}) => {
   return (
     <>
-      <Button bgColor={'bg-green-400'} textColor={'test-red-400'} />
+      <Button bgColor={'bg-pink-900'} textColor={'text-gray-200'} />
     </>
   );
-}
+};
 
-export default App
+export default App;
