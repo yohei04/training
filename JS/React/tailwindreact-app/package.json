@@ -47,6 +47,8 @@
     "@types/classnames": "^2.2.11",
     "autoprefixer": "^9",
     "postcss": "^7",
+    "prettier": "^2.2.1",
+    "prettier-plugin-tailwind": "^2.2.10",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
