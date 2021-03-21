@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Todo } from './components/Todo';
+import { Todo } from '.';
 
 export interface ITodo {
   id: number;
