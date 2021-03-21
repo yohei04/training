@@ -6,9 +6,9 @@ interface Button2Props {
 }
 
 const Button2: React.FC<Button2Props> = ({ color, size }) => {
-  const classNames = `${BaseStyle} ${ColorStyle[color]} ${SizeStyle[size]}`;
+  const style = `${BaseStyle} ${ColorStyle[color]} ${SizeStyle[size]}`;
 
-  return <button className={classNames}>ボタン</button>;
+  return <button className={style}>ボタン</button>;
 };
 
 const BaseStyle =
@@ -16,7 +16,8 @@ const BaseStyle =
 
 const ColorStyle = {
   primary: 'bg-blue-300 hover:bg-blue-200',
-  secondary: 'bg-red-500 hover:bg-red-400',
+  secondary: 'bg-red-500 hover:bg-red-400 ',
+  danger: 'bg-pink-600 px-12 py-16',
 };
 
 const SizeStyle = {
