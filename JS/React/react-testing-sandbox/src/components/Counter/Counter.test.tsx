@@ -6,10 +6,12 @@ describe("Counter", () => {
   afterEach(() => {
     cleanup()
   })
+
   test("render", () => {
     const { asFragment } = render(<Counter />)
     expect(asFragment()).toMatchSnapshot()
   })
+
   test("click:count", () => {
     render(<Counter />)
     const button = screen.getByText("Increment")
