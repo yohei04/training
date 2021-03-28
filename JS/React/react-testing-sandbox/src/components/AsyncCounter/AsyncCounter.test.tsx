@@ -18,24 +18,22 @@ describe("AsyncCounter", () => {
     const button = screen.getByRole("button")
     fireEvent.click(button)
     expect(screen.queryByText(/1/)).toBeNull()
-    screen.debug()
     expect(await screen.findByText(/1/)).toBeInTheDocument()
-    screen.debug()
   })
 
-  // describe("click:count:カウントアップ", () => {
-  //   test("ボタン押下 1 秒後は 1 カウントアップ", () => {
-  //     jest.useFakeTimers() /** 時間詐称 */
-  //     render(<AsyncCounter />)
-  //     const button = screen.getByText("AsyncIncrement")
-  //     fireEvent.click(button)
-  //     act(() => {
-  //       jest.runAllTimers()
-  //     })
-  //     screen.getByText("AsyncCount: 1")
-  //     jest.useRealTimers() /** 時を戻そう */
-  //   })
-  // })
+  describe("click:count:カウントアップ", () => {
+    test("ボタン押下 1 秒後は 1 カウントアップ", () => {
+      jest.useFakeTimers() /** 時間詐称 */
+      render(<AsyncCounter />)
+      const button = screen.getByText("AsyncIncrement")
+      fireEvent.click(button)
+      act(() => {
+        jest.runAllTimers()
+      })
+      screen.getByText("AsyncCount: 1")
+      jest.useRealTimers() /** 時を戻そう */
+    })
+  })
 
   // describe("click:count:ボタン活性・非活性", () => {
   //   test("ボタン押下直後はボタンが非活性", () => {
