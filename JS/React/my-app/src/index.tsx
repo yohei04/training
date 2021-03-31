@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './ben_hooks-tutorial/App';
+import App from './codepanion_react-test/App';
+
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
