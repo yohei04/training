@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Posts from './Posts';
 
 const mockPostData = [
   {
     userId: 1,
     id: 1,
-    title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+    title:
+      'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
     body:
       'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
   },
@@ -40,7 +41,10 @@ describe('Posts', () => {
   test('fetch and render all post titles', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockPostData));
     render(<Posts />);
-    await screen.findByText(/quia et suscipit/);
-    mockPostData.map((post) => expect(screen.getByText(post.title)).toBeInTheDocument());
+    await waitFor(() =>
+      mockPostData.map((post) =>
+        expect(screen.getByText(post.title)).toBeInTheDocument()
+      )
+    );
   });
 });
