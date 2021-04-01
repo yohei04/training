@@ -44,6 +44,11 @@ describe('Posts', () => {
 
   test('fetch and render post', async () => {
     render(<Posts />);
+
+    expect(window.fetch).toHaveBeenCalledWith(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
+
     const text = await screen.findByText(/quia et suscipit/);
     expect(text).toBeInTheDocument();
   });
