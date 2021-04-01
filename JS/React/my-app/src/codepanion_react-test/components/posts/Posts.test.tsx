@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Posts from './Posts';
 
 const mockPostData = [
@@ -31,20 +31,46 @@ beforeEach(() => {
 });
 
 describe('Posts', () => {
-  test('fetch and render post', async () => {
+  beforeEach(() => {
     fetchMock.mockResponseOnce(JSON.stringify(mockPostData));
+  });
+
+  test('fetch and render post', async () => {
     render(<Posts />);
     const text = await screen.findByText(/quia et suscipit/);
     expect(text).toBeInTheDocument();
   });
 
   test('fetch and render all post titles', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(mockPostData));
     render(<Posts />);
     await waitFor(() =>
       mockPostData.map((post) =>
         expect(screen.getByText(post.title)).toBeInTheDocument()
       )
     );
+  });
+
+  test('click on cancel button should hide the form and reset input to default value', async () => {
+    render(<Posts />);
+    fireEvent.click(await screen.findByText('Add New Post'));
+
+    expect(screen.getByPlaceholderText('Title')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByPlaceholderText('Title'), {
+      target: { value: 'New Post Title' },
+    });
+
+    expect(
+      (screen.getByPlaceholderText('Title') as HTMLInputElement).value
+    ).toBe('New Post Title');
+
+    fireEvent.click(screen.getByText('Cancel'));
+
+    expect(screen.queryByPlaceholderText('Title')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Add New Post'));
+    expect(
+      (screen.getByPlaceholderText('Title') as HTMLInputElement).value
+    ).toBe('');
   });
 });
