@@ -1,5 +1,5 @@
-import { title } from 'node:process';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import AddNewPostBtn from './AddNewPostBtn';
 
 interface PostsProps {}
 
@@ -47,7 +47,7 @@ const Posts: React.FC<PostsProps> = () => {
   return (
     <>
       {!postFormIsVisible && (
-        <button onClick={() => setPostFormIsVisible(true)}>Add New Post</button>
+        <AddNewPostBtn onClick={() => setPostFormIsVisible(true)} />
       )}
 
       {postFormIsVisible && (
