@@ -16,7 +16,12 @@ function App() {
               <Home />
             </Route>
             <Route path="/create">
-              <Create />
+              <Create
+                test1={'test1'}
+                test2={'test2'}
+                test3={'test3'}
+                placeholder={'hogehoge'}
+              />
             </Route>
             <Route path="/blogs/:id">
               <BlogDetails />
