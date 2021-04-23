@@ -1,49 +1,19 @@
 @import "styles/_variables.scss";
 
-.blue {
-  background-color: $color-blue-100;
+.red {
+  background-color: palettes(red, light-10);
   &:hover {
-    background-color: $color-blue-500;
+    background-color: palettes(red);
+  }
+}
+
+.blue {
+  background-color: palettes(blue, light-10);
+  &:hover {
+    background-color: palettes(blue);
   }
 }
 
 .l {
   width: 300px;
 }
-
-$red: #e73562;
-$blue: #4169e1;
-$green: #14be6b;
-
-$app-colors: (
-  red: $red,
-  blue: $blue,
-  green: $green,
-);
-
-@each $name, $color in $app-colors {
-  .bg-#{$name} {
-    background-color: $color;
-  }
-  .text_#{$name} {
-    color: $color;
-  }
-}
-
-$colors: (
-  "red" #e73562 10,
-  "blue" #4169e1 10,
-  "green" #14be6b 10,
-);
-
-// @each $name, $color, $number in $colors {
-
-//   "color"_#{$name}_#{$number}: darken($color, 10%);
-
-//   // .bg_#{$name}_#{$number} {
-//   //   background-color: darken($color, 10%);
-//   // }
-//   // .text_#{$name}_#{$number} {
-//   //   color: darken($color, 10%);
-//   // }
-// }
