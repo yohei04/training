@@ -6,7 +6,7 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <header className={styles.header}>
+    <header className={styles.container}>
       <Logo width={40} height={40} />
       <nav>
         <Link href="/">
