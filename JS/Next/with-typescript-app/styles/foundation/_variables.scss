@@ -21,3 +21,7 @@ $palettes: (
 @function palettes($key, $tone: base) {
   @return map-get(map-get($palettes, $key), $tone);
 }
+
+// .hoge {
+//   background: index.$color;
+// }

@@ -1,4 +1,4 @@
-@import "styles/_variables.scss";
+@use "styles/foundation" as *;
 
 .red {
   background-color: palettes(red, light-10);
