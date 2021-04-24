@@ -1,15 +1,13 @@
-import React from "react";
-import { Button } from "../../atoms/Button";
+import React from 'react';
+import { Button } from '../../atoms/Button';
 
 interface CardProps {}
 
 const Card = (props) => {
   return (
-    <>
-      <Button color="blue" size="l">
-        ほげ
-      </Button>
-    </>
+    <Button color="blue" size="l" margin={'mmx-6'}>
+      ほげ
+    </Button>
   );
 };
 
