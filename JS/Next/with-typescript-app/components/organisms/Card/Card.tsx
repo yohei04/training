@@ -21,7 +21,7 @@ const Card = (props) => {
         <p className="text">カードのテキストです</p>
         <p className="text">カードのテキストです</p>
       </div>
-      <Button color="blue" size="l">
+      <Button color="blue" size="l" margin={'mm-10'}>
         ほげ
       </Button>
     </div>

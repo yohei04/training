@@ -1,16 +1,16 @@
 @use "styles/foundation/utils" as *;
 
 .red {
-  background-color: palettes(red, light-10);
+  background-color: var(--clr-secondary-200);
   &:hover {
-    background-color: palettes(red);
+    background-color: var(--clr-secondary-300);
   }
 }
 
 .blue {
-  background-color: palettes(blue, light-10);
+  background-color: var(--clr-secondary-200);
   &:hover {
-    background-color: palettes(blue);
+    background-color: var(--clr-secondary-300);
   }
 }
 
