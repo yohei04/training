@@ -2,4 +2,5 @@
 // @tailwind components;
 // @tailwind utilities;
 
-@use 'foundation';
+@use 'foundation/reset';
+@use 'foundation/utils';
