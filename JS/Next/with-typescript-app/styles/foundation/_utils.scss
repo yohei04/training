@@ -3,47 +3,47 @@ $spaceamounts: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 @each $space in $spaceamounts {
   .mm-#{$space} {
-    margin: calc(#{$space} * 0.25rem);
+    margin: $space * 0.25rem;
   }
   .mmx-#{$space} {
-    margin: 0 calc(#{$space} * 0.25rem);
+    margin: 0 $space * 0.25rem;
   }
   .mmy-#{$space} {
-    margin: calc(#{$space} * 0.25rem) 0;
+    margin: $space * 0.25rem 0;
   }
   .mmt-#{$space} {
-    margin-top: calc(#{$space} * 0.25rem);
+    margin-top: $space * 0.25rem;
   }
   .mmr-#{$space} {
-    margin-right: calc(#{$space} * 0.25rem);
+    margin-right: $space * 0.25rem;
   }
   .mmb-#{$space} {
-    margin-bottom: calc(#{$space} * 0.25rem);
+    margin-bottom: $space * 0.25rem;
   }
   .mml-#{$space} {
-    margin-left: calc(#{$space} * 0.25rem);
+    margin-left: $space * 0.25rem;
   }
 
   .pp-#{$space} {
-    padding: calc(#{$space} * 0.25rem);
+    padding: $space * 0.25rem;
   }
   .ppx-#{$space} {
-    margin: 0 calc(#{$space} * 0.25rem);
+    margin: 0 $space * 0.25rem;
   }
   .ppy-#{$space} {
-    padding: calc(#{$space} * 0.25rem) 0;
+    padding: $space * 0.25rem 0;
   }
   .ppt-#{$space} {
-    padding-top: calc(#{$space} * 0.25rem);
+    padding-top: $space * 0.25rem;
   }
   .ppr-#{$space} {
-    padding-right: calc(#{$space} * 0.25rem);
+    padding-right: $space * 0.25rem;
   }
   .ppb-#{$space} {
-    padding-bottom: calc(#{$space} * 0.25rem);
+    padding-bottom: $space * 0.25rem;
   }
   .ppl-#{$space} {
-    padding-left: calc(#{$space} * 0.25rem);
+    padding-left: $space * 0.25rem;
   }
 }
 
@@ -56,4 +56,3 @@ $spaceamounts: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 .mmy-auto {
   margin: auto 0;
 }
-
