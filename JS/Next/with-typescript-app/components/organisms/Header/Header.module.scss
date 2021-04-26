@@ -4,3 +4,14 @@
   align-items: center;
   margin: 0 1rem;
 }
+
+.nav {
+  display: flex;
+  a:hover {
+    color: var(--clr-primary-400);
+  }
+  a + a {
+    padding-left: 1rem;
+    border-left: 1px solid #333;
+  }
+}
