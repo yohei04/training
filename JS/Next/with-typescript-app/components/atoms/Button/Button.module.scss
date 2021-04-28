@@ -1,12 +1,20 @@
+.default {
+  cursor: pointer;
+}
+
+
+
 .red {
-  background-color: var(--clr-secondary-200);
+  background-color: var(--clr-primary-300);
+  border: 1px solid var(--clr-primary-300);
   &:hover {
-    background-color: var(--clr-secondary-300);
+    background-color: var(--clr-primary-400);
   }
 }
 
 .blue {
   background-color: var(--clr-secondary-200);
+  border: 1px solid var(--clr-secondary-200);
   &:hover {
     background-color: var(--clr-secondary-300);
   }

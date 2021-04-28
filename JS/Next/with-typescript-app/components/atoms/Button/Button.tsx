@@ -12,11 +12,6 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 const Button = ({ color, size, margin, ...rest }: ButtonProps) => {
   return (
     <>
-      <ul className="ul">
-        <li className="li">てすと</li>
-        <li>てすと</li>
-        <li>てすと</li>
-      </ul>
       <button
         className={clsx(styles.default, styles[color], styles[size], margin)}
         {...rest}
