@@ -2,7 +2,8 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
+    "watch:tsass": "tsm \"./**/*.module.scss\" --ignore \"node_modules\" --nameFormat none -w",
+    "dev": "yarn watch:tsass & next",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc"
