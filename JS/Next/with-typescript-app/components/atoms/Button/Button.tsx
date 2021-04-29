@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import styles from './Button.module.scss';
+import utilStyles from '../../../styles/utils.module.scss';
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   color: 'blue' | 'red';
@@ -13,7 +14,7 @@ const Button = ({ color, size, margin, ...rest }: ButtonProps) => {
   return (
     <>
       <button
-        className={clsx(styles.default, styles[color], styles[size], margin)}
+        className={clsx(styles.base, styles[color], styles[size], utilStyles.m_10 )}
         {...rest}
       />
     </>
