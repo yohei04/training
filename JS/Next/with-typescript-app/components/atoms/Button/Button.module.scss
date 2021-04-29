@@ -1,7 +1,7 @@
-.default {
+
+.base {
   cursor: pointer;
 }
-
 
 
 .red {
@@ -20,6 +20,15 @@
   }
 }
 
-.l {
+.s {
   width: 300px;
+}
+.m {
+  width: 400px;
+}
+.l {
+  width: 500px;
+}
+.xl {
+  width: 100%;
 }
