@@ -19,6 +19,9 @@ const Header = () => {
         <Link href="/contact">
           <a>Contact</a>
         </Link>
+        <Link href="/posts">
+          <a>Posts List</a>
+        </Link>
         <Link href="/users">
           <a>Users List</a>
         </Link>
