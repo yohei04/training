@@ -1,5 +1,8 @@
 import { InferGetStaticPropsType } from 'next';
+import Link from 'next/link';
 import React from 'react';
+import Layout from '../../components/Layout';
+import PostList from '../../components/organisms/Post/PostList';
 
 interface IPost {
   id: number;
@@ -8,13 +11,19 @@ interface IPost {
   userId: number;
 }
 
-const Post = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
+export type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+const Post = ({ posts }: PostProps) => {
   return (
-    <>
-      {posts.map((post) => (
-        <p>{post.title}</p>
-      ))}
-    </>
+    <Layout title="Posts List | Next.js + TypeScript Example">
+      <h1>Post page</h1>
+      <PostList posts={posts} />
+      <p>
+        <Link href="/">
+          <a>Go home</a>
+        </Link>
+      </p>
+    </Layout>
   );
 };
 
