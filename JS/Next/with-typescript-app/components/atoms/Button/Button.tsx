@@ -7,18 +7,18 @@ import utilStyles from '../../../styles/utils.module.scss';
 interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   color: 'blue' | 'red';
   size: 's' | 'm' | 'l';
-  margin?: string;
+  space?: keyof typeof utilStyles;
+  // as: 'button' | 'link'
 }
 
-const Button = ({ color, size, margin, ...rest }: ButtonProps) => {
-  return (
-    <>
-      <button
-        className={clsx(styles.base, styles[color], styles[size], utilStyles.m_10 )}
-        {...rest}
-      />
-    </>
+const Button = ({ color, size, space = 'm_0', ...rest }: ButtonProps) => {
+  const buttonStyle = clsx(
+    styles.base,
+    styles[color],
+    styles[size],
+    utilStyles[space]
   );
+  return <button className={buttonStyle} {...rest} />;
 };
 
 export default Button;
