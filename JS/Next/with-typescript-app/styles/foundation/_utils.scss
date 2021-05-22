@@ -1,0 +1,62 @@
+// // Margin & padding classes
+// $spaceamounts: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+// @each $space in $spaceamounts {
+//   .m_#{$space} {
+//     margin: $space * 0.25rem;
+//   }
+//   .mx_#{$space} {
+//     margin: 0 $space * 0.25rem;
+//   }
+//   .my_#{$space} {
+//     margin: $space * 0.25rem 0;
+//   }
+//   .mt_#{$space} {
+//     margin-top: $space * 0.25rem;
+//   }
+//   .mr_#{$space} {
+//     margin-right: $space * 0.25rem;
+//   }
+//   .mb_#{$space} {
+//     margin-bottom: $space * 0.25rem;
+//   }
+//   .ml_#{$space} {
+//     margin-left: $space * 0.25rem;
+//   }
+
+//   .p_#{$space} {
+//     padding: $space * 0.25rem;
+//   }
+//   .px_#{$space} {
+//     margin: 0 $space * 0.25rem;
+//   }
+//   .py_#{$space} {
+//     padding: $space * 0.25rem 0;
+//   }
+//   .pt_#{$space} {
+//     padding-top: $space * 0.25rem;
+//   }
+//   .pr_#{$space} {
+//     padding-right: $space * 0.25rem;
+//   }
+//   .pb_#{$space} {
+//     padding-bottom: $space * 0.25rem;
+//   }
+//   .pl_#{$space} {
+//     padding-left: $space * 0.25rem;
+//   }
+
+//   .space_x_#{$space} > :not([hidden]) ~ :not([hidden]) {
+//     margin-left: $space * 0.25rem;
+//   }
+// }
+
+// .m_auto {
+//   margin: auto;
+// }
+// .mx_auto {
+//   margin: 0 auto;
+// }
+// .my_auto {
+//   margin: auto 0;
+// }
