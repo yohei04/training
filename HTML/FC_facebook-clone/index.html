@@ -12,21 +12,36 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <div class="headerLeft">
-        <span>icon</span>
-        <input type="text" placeholder="Search Facebook" />
+    <header class="header">
+      <div class="header__left">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1200px-Facebook_f_logo_%282019%29.svg.png"
+          alt=""
+        />
+        <div class="header__input">
+          <span class="material-icons"> search </span>
+          <input type="text" placeholder="Search Facebook" />
+        </div>
       </div>
 
-      <nav class="headerMiddle">
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </nav>
+      <ul class="header__middle">
+        <li class="header__option">
+          <span class="material-icons"> home </span>
+        </li>
+        <li class="header__option">
+          <span class="material-icons"> flag </span>
+        </li>
+        <li class="header__option">
+          <span class="material-icons"> subscriptions </span>
+        </li>
+        <li class="header__option">
+          <span class="material-icons"> storefront </span>
+        </li>
+        <li class="header__option">
+          <span class="material-icons"> supervised_user_circle </span>
+        </li>
+      </ul>
+
       <div class="headerRight">
         <ul class="headerRight">
           <li></li>
