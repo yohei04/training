@@ -43,6 +43,10 @@ h2 {
   margin: 0;
 }
 
+strong {
+  color: var(--primary-color);
+}
+
 .container {
   max-width: 1200px;
   padding: var(--space-lg);
@@ -261,11 +265,11 @@ h2 {
 }
 
 .stay-card:hover .stay-card__name {
-  transform: translateX(calc(-100% - var(--space-lg) ));
+  transform: translateX(calc(-100% - var(--space-lg)));
 }
 
 .stay-card:hover .stay-card__price {
-  transform: translateX(calc(-100% - var(--space-lg) ));
+  transform: translateX(calc(-100% - var(--space-lg)));
 }
 
 .stay-card img {
@@ -307,5 +311,61 @@ h2 {
 @media (min-width: 1020px) {
   .stays {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* TESTIMONIALS */
+
+.testimonials {
+  background: #f2f2f2;
+}
+
+.feedback {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.feedback-card__dialog {
+  background-color: white;
+  padding: var(--space-xl) var(--space-lg);
+  border-radius: 20px 20px 20px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  font-family: var(--heading-font);
+}
+
+.feedback-card__dialog__title {
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+.feedback-card__dialog__content {
+  color: #4f4f4f;
+  line-height: 180%;
+}
+
+.feedback-card__user {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.feedback-card__user img {
+  width: 100%;
+}
+
+.feedback-card__user__name {
+  font-weight: 500;
+}
+
+.feedback-card__user__location {
+  color: #bdbdbd;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 760px) {
+  .feedback {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
