@@ -369,3 +369,7 @@ strong {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+footer {
+  font-family: var(--heading-font);
+}
