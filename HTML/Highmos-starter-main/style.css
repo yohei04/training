@@ -36,6 +36,13 @@ section {
   padding: var(--space-2xl) var(--space-md);
 }
 
+h2 {
+  font-size: 2.5rem;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  margin: 0;
+}
+
 .container {
   max-width: 1200px;
   padding: var(--space-lg);
@@ -176,13 +183,6 @@ section {
   font-size: 0.875rem;
 }
 
-.about-us h2 {
-  font-size: 2.5rem;
-  font-family: var(--heading-font);
-  font-weight: 700;
-  margin: 0;
-}
-
 .about-us p {
   color: #828282;
   margin: 0;
@@ -215,3 +215,97 @@ section {
   }
 }
 
+/* ACCOMMODATIONS */
+
+.accommodations__header {
+  margin-top: var(--space-md);
+}
+
+.text-button {
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.text-button i {
+  margin-left: var(--space-sm);
+}
+
+.stays {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+}
+
+.stay-card {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  height: 380px;
+}
+
+.stay-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  transition: opacity 200ms ease-in-out;
+}
+
+.stay-card:hover::before {
+  opacity: 0;
+}
+
+.stay-card:hover .stay-card__name {
+  transform: translateX(calc(-100% - var(--space-lg) ));
+}
+
+.stay-card:hover .stay-card__price {
+  transform: translateX(calc(-100% - var(--space-lg) ));
+}
+
+.stay-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.stay-card__details {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: var(--space-md);
+}
+
+.stay-card__name {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+  transition: transform 200ms ease-in-out;
+}
+
+.stay-card__price {
+  font-weight: 500;
+  transition: transform 200ms ease-in-out 100ms;
+}
+
+@media (min-width: 760px) {
+  .stays {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stay-card--col-2 {
+    grid-column: 1 / span 2;
+  }
+}
+
+@media (min-width: 1020px) {
+  .stays {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
