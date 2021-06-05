@@ -17,7 +17,7 @@
     <!-- HERO AREA -->
 
     <div class="hero-area">
-      <div class="top-header top-header--white-background">
+      <div class="top-header" id="top-header">
         <div class="container">
           <header>
             <svg
@@ -264,5 +264,19 @@
     </section>
 
     <footer class="container">© Thu Nghiem, devchallenges.io</footer>
+
+    <script>
+      window.onscroll = () => {
+        if (window.pageYOffset > 50) {
+          document
+            .getElementById('top-header')
+            .classList.add('top-header--white-background');
+        } else {
+          document
+            .getElementById('top-header')
+            .classList.remove('top-header--white-background');
+        }
+      };
+    </script>
   </body>
 </html>
