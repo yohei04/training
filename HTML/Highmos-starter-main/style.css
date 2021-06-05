@@ -373,3 +373,23 @@ strong {
 footer {
   font-family: var(--heading-font);
 }
+
+.top-header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.top-header .container {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+.top-header--white-background {
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.top-header--white-background path {
+   fill: var(--primary-color);
+}
