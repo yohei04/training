@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Home = () => (
+const Home = () => (
   <div className="container">
     <Head>
       <title>Create Next App</title>
@@ -13,3 +13,5 @@ export const Home = () => (
     <footer>footer</footer>
   </div>
 )
+
+export default Home
