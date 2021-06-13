@@ -3,13 +3,15 @@ import React from 'react'
 
 import styles from './search-input.module.scss'
 
-interface SearchInputProps {}
+interface SearchInputProps {
+  placeholder: string
+}
 
-export const SearchInput = ({}) => {
+export const SearchInput = ({ ...rest }: SearchInputProps) => {
   return (
     <div className={styles.wrapper}>
       <SearchRounded />
-      <input className={styles.input} />
+      <input className={styles.input} {...rest} />
     </div>
   )
 }
