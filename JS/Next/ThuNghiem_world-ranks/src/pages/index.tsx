@@ -1,17 +1,13 @@
-import Head from 'next/head'
+import React from 'react'
+import { Layout } from '../components/layout'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-
-    <main>main</main>
-
-    <footer>footer</footer>
-  </div>
-)
+const Home = () => {
+  return (
+    <Layout>
+      <div className="">hoge</div>
+    </Layout>
+  )
+}
 
 export default Home
