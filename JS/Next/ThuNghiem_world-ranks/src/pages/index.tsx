@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next'
 import React from 'react'
-import { Layout } from '../components/layout'
+import { Layout } from '../components/Layout'
 
 import styles from '../styles/home.module.scss'
 
