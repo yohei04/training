@@ -1,0 +1,14 @@
+.hoge {
+  color: red;
+
+  &-fuga {
+    color: green;
+  }
+}
+.fuga {
+  color: blue;
+}
+
+.hoge_fuga {
+  color: orange;
+}
