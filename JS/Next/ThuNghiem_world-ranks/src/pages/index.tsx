@@ -11,6 +11,7 @@ export interface ICountry {
   region: string
   subregion: string
   population: number
+  alpha3Code: string
 }
 
 export type CountryProps = InferGetStaticPropsType<typeof getStaticProps>
