@@ -263,3 +263,8 @@ input {
   color: var(--title-color);
   cursor: pointer;
 }
+
+/* show menu */
+.show-menu {
+  right: 0;
+}
