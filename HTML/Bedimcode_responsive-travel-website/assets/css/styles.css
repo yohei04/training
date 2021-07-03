@@ -317,3 +317,38 @@ input {
   width: max-content;
 }
 
+.home__info {
+  background-color: var(--first-color);
+  display: flex;
+  padding: 1.5rem 1rem;
+  align-items: center;
+  column-gap: 0.5rem;
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+  width: 228px;
+}
+
+.home__info-title {
+  display: block;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: var(--mb-0-75);
+}
+
+.home__info-button {
+  font-size: var(--small-font-size);
+}
+
+.home__info-overlay {
+  overflow: var(--img-hidden);
+}
+
+.home__info-img {
+  width: 145px;
+  transition: var(--img-transition);
+}
+
+.home__info-img:hover {
+  transform: var(--img-scale);
+}
