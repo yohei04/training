@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import useSWR from 'swr'
 import { fetchBlogList } from '../../lib/api/blog'
 
 export const BlogList = () => {
-  const { data, error } = useSWR('http://localhost:8000/blogs', fetchBlogList)
+  const { data, error } = useSWR('blogs', fetchBlogList)
 
   if (!data || (!data && !error)) return <div>Loading...</div>
 
@@ -10,9 +11,15 @@ export const BlogList = () => {
 
   return (
     <div>
-      {data.map((b) => (
-        <h1 key={b.id}>{b.title}</h1>
-      ))}
+      <ul>
+        {data.map((blog) => (
+          <li key={blog.id}>
+            <Link href={`/blog/${blog.id}`}>
+              <a>{blog.title}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
