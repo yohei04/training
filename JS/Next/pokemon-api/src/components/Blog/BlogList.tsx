@@ -1,18 +1,15 @@
 import Link from 'next/link'
-import useSWR from 'swr'
-import { fetchBlogList } from '../../lib/api/blog'
+import { BlogType } from '../../types/blog'
 
-export const BlogList = () => {
-  const { data, error } = useSWR('blogs', fetchBlogList)
+type BlogListProps = {
+  blogList: BlogType[]
+}
 
-  if (!data || (!data && !error)) return <div>Loading...</div>
-
-  if (error) return <div>error</div>
-
+export const BlogList = ({ blogList }: BlogListProps) => {
   return (
     <div>
       <ul>
-        {data.map((blog) => (
+        {blogList.map((blog) => (
           <li key={blog.id}>
             <Link href={`/blog/${blog.id}`}>
               <a>{blog.title}</a>

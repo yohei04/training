@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { BlogList } from '../../components/Blog'
+import { BlogTemplate } from '../../components/Blog'
 
 const BlogListPage = () => {
-  return <BlogList />
+  return <BlogTemplate />
 }
 
 export default BlogListPage
