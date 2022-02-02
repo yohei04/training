@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
-import { BlogList } from '.'
-import { BASE_ENDPOINT } from '../../constant/endpoint'
-import { createBlog, fetchBlogList } from '../../lib/api/blog'
-import { BlogType } from '../../types/blog'
+import { BlogList } from '..'
+import { BASE_ENDPOINT } from '../../../constant/endpoint'
+import { createBlog, fetchBlogList } from '../../../lib/api/blog'
+import { BlogType } from '../../../types/blog'
 
 export const BlogTemplate = () => {
   const { mutate } = useSWRConfig()
