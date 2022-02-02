@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
@@ -26,13 +26,12 @@ beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-describe('ブログリスト', async () => {
+describe('ブログリスト', () => {
   it('データの表示', async () => {
     render(<BlogTemplate />)
 
-    const loading = await screen.getByText('Loading...')
-    await waitFor(() => screen.getByText('test1'))
-    const element = await screen.getByText('test1')
+    const loading = screen.getByText('Loading...')
+    const element = await screen.findByText('test1')
 
     expect(loading).toBeInTheDocument()
     expect(element).toBeInTheDocument()
