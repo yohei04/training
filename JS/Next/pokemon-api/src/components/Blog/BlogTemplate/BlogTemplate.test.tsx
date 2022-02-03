@@ -1,9 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
 import userEvent from '@testing-library/user-event'
-import { BASE_ENDPOINT } from '../../../constant/endpoint'
 import { BlogTemplate } from '..'
 
 describe('ブログリスト', () => {
@@ -15,7 +12,20 @@ describe('ブログリスト', () => {
 
     expect(loading).toBeInTheDocument()
     expect(element).toBeInTheDocument()
+  })
 
-    // screen.debug()
+  it('データの作成', async () => {
+    render(<BlogTemplate />)
+
+    const input = screen.getByLabelText('ブログタイトル')
+    const button = screen.getByText('ブログ追加')
+    userEvent.type(input, 'test2')
+    userEvent.click(button)
+
+    const element = await screen.findByText('test2')
+
+    expect(element).toBeInTheDocument()
+
+    screen.debug()
   })
 })

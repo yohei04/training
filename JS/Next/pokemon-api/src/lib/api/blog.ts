@@ -22,7 +22,7 @@ export const fetchBlogDetail = async (
 }
 
 /**
- * ブログ詳細を取得する関数
+ * ブログを作成する関数
  */
 export const createBlog = async (params: any) => {
   axios.post(`${BASE_ENDPOINT}/blogs`, params)
