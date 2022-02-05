@@ -8,7 +8,7 @@ describe('ブログリスト', () => {
     render(<BlogTemplate />)
 
     const loading = screen.getByText('Loading...')
-    const element = await screen.findByText('test1')
+    const element = await screen.findByText('title1')
 
     expect(loading).toBeInTheDocument()
     expect(element).toBeInTheDocument()
@@ -19,10 +19,10 @@ describe('ブログリスト', () => {
 
     const input = screen.getByLabelText('ブログタイトル')
     const button = screen.getByText('ブログ追加')
-    userEvent.type(input, 'test2')
+    userEvent.type(input, 'title3')
     userEvent.click(button)
 
-    const element = await screen.findByText('test2')
+    const element = await screen.findByText('title3')
 
     expect(element).toBeInTheDocument()
 

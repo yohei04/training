@@ -15,7 +15,7 @@ export const BlogTemplate = () => {
 
     e.preventDefault()
     // update the local data immediately, but disable the revalidation
-    mutate(`${BASE_ENDPOINT}/blogs`, [...data, newBlog], false)
+    // mutate(`${BASE_ENDPOINT}/blogs`, [...data, newBlog], false)
 
     // send a request to the API to update the source
     await createBlog(newBlog)
