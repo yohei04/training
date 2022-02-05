@@ -15,18 +15,8 @@ export const handlers = [
       ])
     )
   }),
-  
+
   rest.post(`${BASE_ENDPOINT}/blogs`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          // id: 100,
-          title: 'post1',
-          body: 'post1',
-          author: 'post1',
-        },
-      ])
-    )
+    return res(ctx.status(200))
   }),
 ]
