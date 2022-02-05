@@ -24,7 +24,6 @@ export const handlers = [
   }),
 
   rest.get(`${BASE_ENDPOINT}/blogs/:id`, (req, res, ctx) => {
-    console.log({ req, res })
     return res(
       ctx.status(200),
       ctx.delay(500),
@@ -38,6 +37,6 @@ export const handlers = [
   }),
 
   rest.post(`${BASE_ENDPOINT}/blogs`, (req, res, ctx) => {
-    return res(ctx.status(200))
+    return res(ctx.status(200), ctx.delay(500))
   }),
 ]

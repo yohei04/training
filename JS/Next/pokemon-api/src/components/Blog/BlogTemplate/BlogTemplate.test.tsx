@@ -2,12 +2,16 @@ import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 import { BlogTemplate } from '..'
+import { rest } from 'msw'
+import { server } from '../../../mocks/server'
+import { BASE_ENDPOINT } from '../../../constant/endpoint'
+import { BlogType } from '../../../types/blog'
 
 describe('ブログリスト', () => {
   it('データの表示', async () => {
     render(<BlogTemplate />)
 
-    const loading = screen.getByText('Loading...')
+    const loading = await screen.findByText('Loading...')
     const element = await screen.findByText('title1')
 
     expect(loading).toBeInTheDocument()
@@ -15,17 +19,26 @@ describe('ブログリスト', () => {
   })
 
   it('データの作成', async () => {
+    const mockFn = jest.fn()
+    server.use(
+      rest.post(`${BASE_ENDPOINT}/blogs`, (req, res, ctx) => {
+        mockFn((req?.body as BlogType).title)
+        return res(ctx.status(200), ctx.delay(500))
+      })
+    )
+
     render(<BlogTemplate />)
 
-    const input = screen.getByLabelText('ブログタイトル')
-    const button = screen.getByText('ブログ追加')
-    userEvent.type(input, 'title3')
+    const input = await screen.findByLabelText('ブログタイトル')
+    const button = await screen.findByText('ブログ追加')
+    const text = 'title3'
+    userEvent.type(input, text)
     userEvent.click(button)
 
-    const element = await screen.findByText('title3')
+    // const element = await screen.findByText('title3')
+    // expect(element).toBeInTheDocument()
+    await waitFor(() => expect(mockFn).toBeCalledWith(text))
 
-    expect(element).toBeInTheDocument()
-
-    screen.debug()
+    // screen.debug()
   })
 })
