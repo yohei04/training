@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import { BlogList } from '..'
 import { createBlog, fetchBlogList } from '../../../lib/api/blog'
-import { BlogType } from '../../../types/models/blog'
+import { BlogType } from '../../../types/blog'
 
 export const BlogTemplate = () => {
   const { mutate } = useSWRConfig()
@@ -25,7 +25,7 @@ export const BlogTemplate = () => {
     setNewBlog(undefined)
   }
 
-  if (!data || (!data && !error)) return <div>Loading...</div>
+  if (!data) return <div>Loading...</div>
   if (error) return <div>error</div>
 
   return (
@@ -43,7 +43,6 @@ export const BlogTemplate = () => {
             setNewBlog({
               title: e.target.value,
               body: `body${data.length + 1}`,
-              author: `user${data.length + 1}`,
               id: `${data.length + 1}`,
             })
           }

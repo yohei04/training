@@ -1,6 +1,6 @@
-import { factory, manyOf, primaryKey } from '@mswjs/data'
-import { BlogType } from '../types/models/blog'
-import { UserType } from '../types/models/user'
+import { factory, manyOf, oneOf, primaryKey } from '@mswjs/data'
+import { BlogType } from '../types/blog'
+import { UserType } from '../types/user'
 
 export const db = factory({
   // A "blog" model that describes what properties
@@ -14,7 +14,7 @@ export const db = factory({
     id: primaryKey(String),
     title: String,
     body: String,
-    // author: oneOf('user'),
+    author: oneOf('user'),
   },
 })
 
@@ -34,19 +34,16 @@ export const defaultBlogs: BlogType[] = [
     id: '1',
     title: 'title1',
     body: 'body1',
-    author: 'user1',
   },
   {
     id: '2',
     title: 'title2',
     body: 'body2',
-    author: 'user1',
   },
   {
     id: '3',
     title: 'title3',
     body: 'body3',
-    author: 'user1',
   },
 ]
 

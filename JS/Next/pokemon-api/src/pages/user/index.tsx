@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import { NextPage } from 'next'
 import { UserTemplate } from '../../components/User'
 
-const UserListPage = () => {
+const UserListPage: NextPage = () => {
   return <UserTemplate />
 }
 

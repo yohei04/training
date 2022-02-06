@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserResType } from '../../types/response/user'
+import { UserResType } from '../../types/user'
 
 /**
  * ユーザー一覧を取得する関数

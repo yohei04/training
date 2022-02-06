@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useState } from 'react'
 import useSWR from 'swr'
 import { UserList } from '.'
 import { fetchUserList } from '../../lib/api/user'

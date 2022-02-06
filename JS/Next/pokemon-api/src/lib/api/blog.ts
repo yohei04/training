@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { BlogType } from '../../types/models/blog'
+import { BlogResType, BlogType } from '../../types/blog'
 
 /**
  * ブログ一覧を取得する関数
  */
-export const fetchBlogList = async (): Promise<BlogType[]> => {
+export const fetchBlogList = async (): Promise<BlogResType[]> => {
   const response = await axios.get(`/blogs`)
   return response.data
 }
@@ -14,7 +14,7 @@ export const fetchBlogList = async (): Promise<BlogType[]> => {
  */
 export const fetchBlogDetail = async (
   id: string
-): Promise<BlogType | undefined> => {
+): Promise<BlogResType | undefined> => {
   if (!id) return
   const response = await axios.get(`/blogs/${id}`)
   return response.data

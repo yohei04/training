@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import { NextPage } from 'next'
 import { BlogTemplate } from '../../components/Blog'
 
-const BlogListPage = () => {
+const BlogListPage: NextPage = () => {
   return <BlogTemplate />
 }
 

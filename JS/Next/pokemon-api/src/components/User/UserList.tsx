@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { UserResType } from '../../types/response/user'
+import { UserResType } from '../../types/user'
 
 type UserListProps = {
   userList: UserResType[]
