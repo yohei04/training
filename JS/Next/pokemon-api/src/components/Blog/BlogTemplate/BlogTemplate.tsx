@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { FormEvent, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import { BlogList } from '..'
@@ -57,6 +58,9 @@ export const BlogTemplate = () => {
         </button>
       </form>
       <BlogList blogList={data} />
+      <Link href={'/'}>
+        <a>ホームへ戻る</a>
+      </Link>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import useSWR from 'swr'
 import { UserList } from '.'
@@ -12,6 +13,9 @@ export const UserTemplate = () => {
   return (
     <div>
       <UserList userList={data} />
+      <Link href={'/'}>
+        <a>ホームへ戻る</a>
+      </Link>
     </div>
   )
 }
