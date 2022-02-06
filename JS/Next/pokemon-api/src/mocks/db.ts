@@ -1,6 +1,6 @@
-import { factory, manyOf, oneOf, primaryKey } from '@mswjs/data'
-import { BlogType } from '../types/blog'
-import { UserType } from '../types/user'
+import { factory, manyOf, primaryKey } from '@mswjs/data'
+import { BlogType } from '../types/models/blog'
+import { UserType } from '../types/models/user'
 
 export const db = factory({
   // A "blog" model that describes what properties

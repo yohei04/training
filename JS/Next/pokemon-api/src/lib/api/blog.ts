@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BlogType } from '../../types/blog'
+import { BlogType } from '../../types/models/blog'
 
 /**
  * ブログ一覧を取得する関数

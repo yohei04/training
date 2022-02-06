@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useSWRConfig } from 'swr'
 import { deleteBlog } from '../../lib/api/blog'
-import { BlogType } from '../../types/blog'
+import { BlogType } from '../../types/models/blog'
 
 type BlogListProps = {
   blogList: BlogType[]
