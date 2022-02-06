@@ -9,7 +9,7 @@ type BlogListProps = {
 
 export const BlogList = ({ blogList }: BlogListProps) => {
   const { mutate } = useSWRConfig()
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     await deleteBlog(id)
     mutate('/blogs')
   }

@@ -1,5 +1,3 @@
-import { rest } from 'msw'
-import { BASE_ENDPOINT } from '../constant/endpoint'
 import { db } from './db'
 
 export const handlers = [

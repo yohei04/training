@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import { BlogList } from '..'
-import { BASE_ENDPOINT } from '../../../constant/endpoint'
 import { createBlog, fetchBlogList } from '../../../lib/api/blog'
 import { BlogType } from '../../../types/blog'
 
@@ -11,7 +10,7 @@ export const BlogTemplate = () => {
   const [newBlog, setNewBlog] = useState<BlogType | undefined>()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    if (!data) return
+    if (!data || !newBlog) return
 
     e.preventDefault()
     // update the local data immediately, but disable the revalidation
@@ -44,7 +43,7 @@ export const BlogTemplate = () => {
               title: e.target.value,
               body: `body${data.length + 1}`,
               author: `user${data.length + 1}`,
-              id: data.length + 1,
+              id: `${data.length + 1}`,
             })
           }
           value={newBlog?.title ?? ''}

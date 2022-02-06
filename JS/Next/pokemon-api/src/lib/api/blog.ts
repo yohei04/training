@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { BASE_ENDPOINT } from '../../constant/endpoint'
 import { BlogType } from '../../types/blog'
 
 /**
@@ -14,7 +13,7 @@ export const fetchBlogList = async (): Promise<BlogType[]> => {
  * ブログ詳細を取得する関数
  */
 export const fetchBlogDetail = async (
-  id: number
+  id: string
 ): Promise<BlogType | undefined> => {
   if (!id) return
   const response = await axios.get(`/blogs/${id}`)
@@ -24,12 +23,12 @@ export const fetchBlogDetail = async (
 /**
  * ブログを作成する関数
  */
-export const createBlog = async (params: any) => {
+export const createBlog = async (params: BlogType) => {
   axios.post(`/blogs`, params)
 }
 /**
  * ブログを削除する関数
  */
-export const deleteBlog = async (id: number) => {
+export const deleteBlog = async (id: string) => {
   axios.delete(`/blogs/${id}`)
 }

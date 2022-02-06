@@ -1,5 +1,5 @@
 export type BlogType = {
-  id: number
+  id: string
   title: string
   body: string
   author: string

@@ -2,10 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 import { BlogTemplate } from '..'
-import { rest } from 'msw'
-import { server } from '../../../mocks/server'
-import { BASE_ENDPOINT } from '../../../constant/endpoint'
-import { BlogType } from '../../../types/blog'
 
 describe('ブログ', () => {
   it('データ一覧の表示', async () => {
@@ -19,14 +15,6 @@ describe('ブログ', () => {
   })
 
   it('データの作成', async () => {
-    // const mockFn = jest.fn()
-    // server.use(
-    //   rest.post(`/blogs`, (req, res, ctx) => {
-    //     mockFn((req?.body as BlogType).title)
-    //     return res(ctx.status(200), ctx.delay(500))
-    //   })
-    // )
-
     render(<BlogTemplate />)
 
     const input = await screen.findByLabelText('ブログタイトル')
@@ -37,7 +25,6 @@ describe('ブログ', () => {
 
     const element = await screen.findByText(text)
     expect(element).toBeInTheDocument()
-    // await waitFor(() => expect(mockFn).toBeCalledWith(text))
   })
 
   it('データの削除', async () => {
