@@ -5,8 +5,8 @@ import { BlogType } from '../../types/blog'
 /**
  * ブログ一覧を取得する関数
  */
-export const fetchBlogList = async (url: string): Promise<BlogType[]> => {
-  const response = await axios.get(url)
+export const fetchBlogList = async (): Promise<BlogType[]> => {
+  const response = await axios.get(`/blogs`)
   return response.data
 }
 
@@ -17,7 +17,7 @@ export const fetchBlogDetail = async (
   id: number
 ): Promise<BlogType | undefined> => {
   if (!id) return
-  const response = await axios.get(`${BASE_ENDPOINT}/blogs/${id}`)
+  const response = await axios.get(`/blogs/${id}`)
   return response.data
 }
 
@@ -25,5 +25,5 @@ export const fetchBlogDetail = async (
  * ブログを作成する関数
  */
 export const createBlog = async (params: any) => {
-  axios.post(`${BASE_ENDPOINT}/blogs`, params)
+  axios.post(`/blogs`, params)
 }

@@ -7,7 +7,7 @@ import { BlogType } from '../../../types/blog'
 
 export const BlogTemplate = () => {
   const { mutate } = useSWRConfig()
-  const { data, error } = useSWR(`${BASE_ENDPOINT}/blogs`, fetchBlogList)
+  const { data, error } = useSWR(`/blogs`, fetchBlogList)
   const [newBlog, setNewBlog] = useState<BlogType | undefined>()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -15,13 +15,13 @@ export const BlogTemplate = () => {
 
     e.preventDefault()
     // update the local data immediately, but disable the revalidation
-    mutate(`${BASE_ENDPOINT}/blogs`, [...data, newBlog], false)
+    mutate(`/blogs`, [...data, newBlog], false)
 
     // send a request to the API to update the source
     await createBlog(newBlog)
 
     // trigger a revalidation (refetch) to make sure our local data is correct
-    mutate(`${BASE_ENDPOINT}/blogs`)
+    mutate(`/blogs`)
     setNewBlog(undefined)
   }
 
