@@ -38,6 +38,15 @@ describe('ブログ', () => {
     const element = await screen.findByText(text)
     expect(element).toBeInTheDocument()
     // await waitFor(() => expect(mockFn).toBeCalledWith(text))
+  })
+
+  it('データの削除', async () => {
+    render(<BlogTemplate />)
+
+    const deleteButtons = await screen.findAllByText('X')
+    userEvent.click(deleteButtons[0])
+    const element = screen.queryByText('title1')
+    await waitFor(() => expect(expect(element).not.toBeInTheDocument()))
 
     screen.debug()
   })

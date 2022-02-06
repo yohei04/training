@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { useSWRConfig } from 'swr'
+import { deleteBlog } from '../../lib/api/blog'
 import { BlogType } from '../../types/blog'
 
 type BlogListProps = {
@@ -6,14 +8,27 @@ type BlogListProps = {
 }
 
 export const BlogList = ({ blogList }: BlogListProps) => {
+  const { mutate } = useSWRConfig()
+  const handleDelete = async (id: number) => {
+    await deleteBlog(id)
+    mutate('/blogs')
+  }
+
   return (
     <div>
       <ul>
         {blogList.map((blog) => (
-          <li key={blog.id}>
+          <li className="mb-3" key={blog.id}>
             <Link href={`/blog/${blog.id}`}>
               <a>{blog.title}</a>
             </Link>
+            <button
+              className="bg-orange-400 px-1"
+              data-testid={`delete-button-${blog.id}`}
+              onClick={() => handleDelete(blog.id)}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>

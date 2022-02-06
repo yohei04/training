@@ -27,3 +27,9 @@ export const fetchBlogDetail = async (
 export const createBlog = async (params: any) => {
   axios.post(`/blogs`, params)
 }
+/**
+ * ブログを削除する関数
+ */
+export const deleteBlog = async (id: number) => {
+  axios.delete(`/blogs/${id}`)
+}
