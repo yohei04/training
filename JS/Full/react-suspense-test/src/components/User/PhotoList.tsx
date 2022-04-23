@@ -14,8 +14,6 @@ const PhotoList: FC = () => {
     suspense: true,
   });
 
-  console.log({ data });
-
   return (
     <ul>
       {data?.map((d) => (

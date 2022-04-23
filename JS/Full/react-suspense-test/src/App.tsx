@@ -1,8 +1,8 @@
-import { startTransition, Suspense, useState, useTransition } from 'react';
+import { Suspense, useState, useTransition } from 'react';
 
-import PhotoList from './componenst/User/PhotoList';
-import UserList from './componenst/User/UserList';
-import UserPage from './componenst/User/UserPage';
+import PhotoList from './components/User/PhotoList';
+import UserList from './components/User/UserList';
+import UserPage from './components/User/UserPage';
 
 function App() {
   const [visible, setVisible] = useState(false);
@@ -14,11 +14,9 @@ function App() {
   const [isPending, startTransition] = useTransition();
   const handleRadioButton = (e) => {
     // startTransition(() => {
-      setRadioButtonValue(e.target.name);
+    setRadioButtonValue(e.target.name);
     // });
   };
-
-  console.log({ isPending });
 
   return (
     <div>

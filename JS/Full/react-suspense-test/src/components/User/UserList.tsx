@@ -12,8 +12,6 @@ const UserList: FC = () => {
     suspense: true,
   });
 
-  console.log({ users: data, isLoadingUsers: isLoading, isFetchingUsers: isFetching });
-
   return (
     <ul>
       {data?.map((d) => (
