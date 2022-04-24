@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FC } from 'react';
+import { FC, useCallback, useState, useTransition } from 'react';
 import { useQuery } from 'react-query';
 
 import { Comment } from '../../types/comment';
@@ -9,23 +9,34 @@ type Props = {
 };
 
 export const CommentList: FC<Props> = ({ postId }) => {
+  const [isShowComment, setIsShowComment] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleShowComment = useCallback(() => {
+    startTransition(() => {
+      setIsShowComment((prev) => !prev);
+    });
+  }, []);
+
   const { data: comments } = useQuery(['userComments', postId], () => getComments(postId), {
     suspense: true,
-    enabled: !!postId,
+    enabled: !!postId && isShowComment,
   });
-
-  console.log({ comments });
 
   return (
     <div>
-      <p>コメント</p>
-      <ul>
-        {comments?.map((c) => (
-          <li key={c.id}>
-            <p>{c.body}</p>
-          </li>
-        ))}
-      </ul>
+      <p style={{ cursor: 'pointer', opacity: isPending ? 0.5 : 1 }} onClick={handleShowComment}>
+        コメント表示
+      </p>
+      {isShowComment && (
+        <ul>
+          {comments?.map((c) => (
+            <li key={c.id}>
+              <p>{c.body}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

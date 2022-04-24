@@ -3,6 +3,7 @@ import { FC, Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 import { User } from '../../types/user';
+import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
 import { PostList2 } from './PostList2';
 
@@ -16,7 +17,8 @@ export const PostContainer: FC = () => {
   return (
     <div style={{ display: 'flex' }}>
       <UserList2 data={data!} />
-      <Suspense fallback={<h1>投稿をローディング中です........</h1>}>
+      {/* <Suspense fallback={<h1>投稿をローディング中です........</h1>}> */}
+      <Suspense fallback={<Spinner />}>
         <PostList2 userId={userId} />
       </Suspense>
     </div>
