@@ -31,5 +31,6 @@ export const PhotoList: FC = () => {
 
 const getPhotos = async () => {
   const data = await axios.get<Photo[]>('https://jsonplaceholder.typicode.com/photos');
-  return data.data;
+  // return data.data;
+  return data.data.slice(0, 10);
 };
