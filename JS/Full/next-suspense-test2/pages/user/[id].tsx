@@ -3,13 +3,12 @@ import { Suspense } from 'react';
 
 import { PostContainer } from '../../components/post';
 
-const UserPage: NextPage = () => {
+const UserDerailPage: NextPage = () => {
   return (
     <Suspense fallback={<h1 style={{ color: 'tomato' }}>全体をローディング中です........</h1>}>
-      ユーザー一覧ページ
-      {/* <PostContainer /> */}
+      <PostContainer />
     </Suspense>
   );
 };
 
-export default UserPage;
+export default UserDerailPage;

@@ -31,9 +31,33 @@
     },
     {
       "id": 3,
-      "userId": 2,
+      "userId": 1,
       "title": "title-3",
       "body": "body-3 body-3 body-3 body-3 body-3"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "title-4",
+      "body": "body-4 body-4 body-4 body-4 body-4"
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "title": "title-5",
+      "body": "body-5 body-5 body-5 body-5 body-5"
+    },
+    {
+      "id": 6,
+      "userId": 2,
+      "title": "title-6",
+      "body": "body-6 body-6 body-6 body-6 body-6"
+    },
+    {
+      "id": 7,
+      "userId": 3,
+      "title": "title-7",
+      "body": "body-7 body-7 body-7 body-7 body-7"
     }
   ],
   "comments": [

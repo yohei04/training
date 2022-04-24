@@ -23,7 +23,7 @@ const Home: NextPage = () => {
           </Link>
         </li>
         <li>
-          <Link href={'/user'}>
+          <Link href={'/user/1'}>
             <a>投稿一覧（ネストなし）</a>
           </Link>
         </li>
