@@ -17,6 +17,11 @@ const Home: NextPage = () => {
             <a>写真一覧</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/post'}>
+            <a>投稿一覧</a>
+          </Link>
+        </li>
       </ul>
     </div>
   );
