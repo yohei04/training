@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { FC, Suspense } from 'react';
 
-import PhotoList from '../../components/User/PhotoList';
-import UserList from '../../components/User/UserList';
+import { PhotoList } from '../../components/photo';
+import { UserList } from '../../components/user';
 
 // 全体を一度にロード
 // UserListがロードされるまで一番上のfallbackを表示する

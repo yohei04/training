@@ -7,7 +7,7 @@ type User = {
   name: string;
 };
 
-const UserList: FC = () => {
+export const UserList: FC = () => {
   const { data, isLoading, isFetching } = useQuery(['user'], getUsers, {
     suspense: true,
   });
@@ -23,10 +23,8 @@ const UserList: FC = () => {
   );
 };
 
-export default UserList;
-
 const getUsers = async () => {
   const data = await axios.get<User[]>('https://jsonplaceholder.typicode.com/users');
   return data.data;
-  // return data.data.slice(0, 5);
+  // return data.data.slice(0, 1000);
 };

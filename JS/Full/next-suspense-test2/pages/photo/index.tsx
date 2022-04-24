@@ -1,9 +1,11 @@
 import { NextPage } from 'next';
 import { FC, Suspense } from 'react';
 
-import PhotoList from '../../components/User/PhotoList';
-import PhotoListPagination from '../../components/User/PhotoListPagination';
-import { PhotoListPagination2 } from '../../components/User/PhotoListPagination2';
+import {
+  PhotoList,
+  PhotoListPagination,
+  PhotoListPagination2,
+} from '../../components/photo';
 
 const PhotoPage: NextPage = () => {
   return (

@@ -8,12 +8,12 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <ul>
         <li>
-          <Link href={'/users'}>
+          <Link href={'/user'}>
             <a>ユーザー一覧</a>
           </Link>
         </li>
         <li>
-          <Link href={'/photos'}>
+          <Link href={'/photo'}>
             <a>写真一覧</a>
           </Link>
         </li>

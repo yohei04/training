@@ -2,10 +2,10 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FC, useState, useTransition } from 'react';
+import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 1000;
 
 type Photo = {
   id: number;
@@ -14,22 +14,15 @@ type Photo = {
   url: string;
 };
 
-export const PhotoListPagination2: FC = () => {
-  const [pageNum, setPageNum] = useState(1);
+export const PhotoListPagination: FC = () => {
+  const router = useRouter();
+  const pageNum = router.query.page ? Number(router.query.page) : 1;
 
-  const { data, isLoading, isFetching } = useQuery(['photo', pageNum], () => getPhotos(pageNum), {
+  const { data, isLoading } = useQuery(['photo', pageNum], () => getPhotos(pageNum), {
     suspense: true,
   });
 
-  console.log({ isLoading, isFetching });
-
-  const [isPending, startTransition] = useTransition();
-
-  const handlePagination = (pageNum: number) => {
-    startTransition(() => {
-      setPageNum(pageNum);
-    });
-  };
+  console.log({ data, pageNum });
 
   return (
     <div>
@@ -38,17 +31,17 @@ export const PhotoListPagination2: FC = () => {
       </Link>
       <ul style={{ display: 'flex', gap: '1rem' }}>
         <li>
-          <button style={{ background: pageNum === 1 ? 'yellow' : 'white' }} onClick={() => handlePagination(1)}>
-            1
-          </button>
+          <Link href={`/photo?page=1`}>
+            <a style={{ color: pageNum === 1 ? 'red' : 'black' }}>1</a>
+          </Link>
         </li>
         <li>
-          <button style={{ background: pageNum === 2 ? 'yellow' : 'white' }} onClick={() => handlePagination(2)}>
-            2
-          </button>
+          <Link href={`/photo?page=2`}>
+            <a style={{ color: pageNum === 2 ? 'red' : 'black' }}>2</a>
+          </Link>
         </li>
       </ul>
-      <ul style={{ opacity: isPending && isFetching ? 0.8 : 1 }}>
+      <ul>
         {data?.map((d) => (
           <li key={d.id}>
             <p>

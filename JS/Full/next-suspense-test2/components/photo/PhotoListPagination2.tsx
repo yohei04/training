@@ -1,11 +1,10 @@
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { FC, Suspense } from 'react';
+import React, { FC, useState, useTransition } from 'react';
 import { useQuery } from 'react-query';
 
-const PAGE_SIZE = 1000;
+const PAGE_SIZE = 100;
 
 type Photo = {
   id: number;
@@ -14,15 +13,22 @@ type Photo = {
   url: string;
 };
 
-const PhotoListPagination: FC = () => {
-  const router = useRouter();
-  const pageNum = router.query.page ? Number(router.query.page) : 1;
+export const PhotoListPagination2: FC = () => {
+  const [pageNum, setPageNum] = useState(1);
 
-  const { data, isLoading } = useQuery(['photo', pageNum], () => getPhotos(pageNum), {
+  const { data, isLoading, isFetching } = useQuery(['photo', pageNum], () => getPhotos(pageNum), {
     suspense: true,
   });
 
-  console.log({ data, pageNum });
+  console.log({ isLoading, isFetching });
+
+  const [isPending, startTransition] = useTransition();
+
+  const handlePagination = (pageNum: number) => {
+    startTransition(() => {
+      setPageNum(pageNum);
+    });
+  };
 
   return (
     <div>
@@ -31,17 +37,17 @@ const PhotoListPagination: FC = () => {
       </Link>
       <ul style={{ display: 'flex', gap: '1rem' }}>
         <li>
-          <Link href={`/photos?page=1`}>
-            <a style={{ color: pageNum === 1 ? 'red' : 'black' }}>1</a>
-          </Link>
+          <button style={{ background: pageNum === 1 ? 'yellow' : 'white' }} onClick={() => handlePagination(1)}>
+            1
+          </button>
         </li>
         <li>
-          <Link href={`/photos?page=2`}>
-            <a style={{ color: pageNum === 2 ? 'red' : 'black' }}>2</a>
-          </Link>
+          <button style={{ background: pageNum === 2 ? 'yellow' : 'white' }} onClick={() => handlePagination(2)}>
+            2
+          </button>
         </li>
       </ul>
-      <ul>
+      <ul style={{ opacity: isPending && isFetching ? 0.8 : 1 }}>
         {data?.map((d) => (
           <li key={d.id}>
             <p>
@@ -54,8 +60,6 @@ const PhotoListPagination: FC = () => {
     </div>
   );
 };
-
-export default PhotoListPagination;
 
 const getPhotos = async (page: number) => {
   const offset = (page - 1) * PAGE_SIZE;

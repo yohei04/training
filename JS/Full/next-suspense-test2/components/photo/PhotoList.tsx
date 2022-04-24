@@ -10,7 +10,7 @@ type Photo = {
   url: string;
 };
 
-const PhotoList: FC = () => {
+export const PhotoList: FC = () => {
   const { data, isLoading } = useQuery(['photo'], getPhotos, {
     suspense: true,
   });
@@ -29,9 +29,7 @@ const PhotoList: FC = () => {
   );
 };
 
-export default PhotoList;
-
 const getPhotos = async () => {
   const data = await axios.get<Photo[]>('https://jsonplaceholder.typicode.com/photos');
-  return data.data.slice(0, 10);
+  return data.data;
 };
