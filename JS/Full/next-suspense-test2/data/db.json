@@ -1,0 +1,99 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John",
+      "age": 25
+    },
+    {
+      "id": 2,
+      "name": "Mark",
+      "age": 30
+    },
+    {
+      "id": 3,
+      "name": "Kent",
+      "age": 20
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "title-1",
+      "body": "body-1 body-1 body-1 body-1 body-1"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "title-2",
+      "body": "body-2 body-2 body-2 body-2 body-2"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "title": "title-3",
+      "body": "body-3 body-3 body-3 body-3 body-3"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "userId": 1,
+      "body": "comments 1"
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "userId": 1,
+      "body": "comments 2"
+    },
+    {
+      "id": 3,
+      "postId": 2,
+      "userId": 1,
+      "body": "comments 3"
+    },
+    {
+      "id": 4,
+      "postId": 3,
+      "userId": 2,
+      "body": "comments 4"
+    },
+    {
+      "id": 5,
+      "postId": 1,
+      "userId": 2,
+      "body": "comments 5"
+    },
+    {
+      "id": 6,
+      "postId": 1,
+      "userId": 3,
+      "body": "comments 6"
+    }
+  ],
+  "likes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "postId": 1
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "postId": 1
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "postId": 2
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "postId": 2
+    }
+  ]
+}

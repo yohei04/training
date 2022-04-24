@@ -8,8 +8,8 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <ul>
         <li>
-          <Link href={'/user'}>
-            <a>ユーザー一覧</a>
+          <Link href={'/test'}>
+            <a>テスト一覧</a>
           </Link>
         </li>
         <li>
@@ -19,7 +19,12 @@ const Home: NextPage = () => {
         </li>
         <li>
           <Link href={'/post'}>
-            <a>投稿一覧</a>
+            <a>投稿一覧（データネスト）</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/user'}>
+            <a>投稿一覧（ネストなし）</a>
           </Link>
         </li>
       </ul>
