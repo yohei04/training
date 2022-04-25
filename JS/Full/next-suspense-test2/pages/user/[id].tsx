@@ -1,14 +1,13 @@
 import { NextPage } from 'next';
-import { Suspense } from 'react';
+import { useRouter } from 'next/router';
 
 import { PostContainer } from '../../components/post';
 
 const UserDerailPage: NextPage = () => {
-  return (
-    <Suspense fallback={<h1 style={{ color: 'tomato' }}>全体をローディング中です........</h1>}>
-      <PostContainer />
-    </Suspense>
-  );
+  const { query } = useRouter();
+  if (!query.id) return <h1>queryが取得できてない</h1>;
+
+  return <PostContainer queryId={query.id as string} />;
 };
 
 export default UserDerailPage;

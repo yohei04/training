@@ -1,22 +1,28 @@
+import axios from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { FC } from 'react';
+import { useQuery } from 'react-query';
 
 import { User } from '../../types/user';
 
 type Props = {
-  users: User[];
+  selectedUserId: number;
+  handleSelectedUserId: (id: number) => void;
 };
 
-export const UserList2: FC<Props> = ({ users }) => {
-  const { query } = useRouter();
-  const userId: number = query.id ? Number(query.id) : 1;
+export const UserList2: FC<Props> = ({ selectedUserId, handleSelectedUserId }) => {
+  const { data: users } = useQuery(['users'], getUsers, {
+    suspense: true,
+  });
 
   return (
     <ul>
       {users?.map((u) => (
         <li key={u.id}>
-          <p style={{ borderBottom: u.id === userId ? '2px solid lightblue' : '2px solid transparent' }}>
+          <p
+            style={{ borderBottom: u.id === selectedUserId ? '2px solid lightblue' : '2px solid transparent' }}
+            onClick={() => handleSelectedUserId(u.id)}
+          >
             <Link href={`/user/${u.id}`}>
               <a>
                 {u.id}. {u.name}
@@ -27,4 +33,9 @@ export const UserList2: FC<Props> = ({ users }) => {
       ))}
     </ul>
   );
+};
+
+const getUsers = async () => {
+  const data = await axios.get<User[]>('http://localhost:4000/users');
+  return data.data;
 };

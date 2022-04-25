@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 
 import { Post } from '../../types/post';
-import { CommentList } from '../comment/CommentList';
+import { CommentList } from '../comment';
+import { CommentSection } from '../comment/CommentSection';
 
 type Props = {
   userId: number;
@@ -15,6 +16,8 @@ export const PostList2: FC<Props> = ({ userId }) => {
     enabled: !!userId,
   });
 
+  console.log('PostList2 render', userId);
+
   return (
     <div>
       <ul>
@@ -24,9 +27,9 @@ export const PostList2: FC<Props> = ({ userId }) => {
               <p>タイトル：{p.title}</p>
               <p>本文：</p>
               <p>{p.body}</p>
-              <Suspense fallback={<h1>コメントをローディング中です........</h1>}>
+              <CommentSection>
                 <CommentList postId={p.id} />
-              </Suspense>
+              </CommentSection>
             </div>
           ))}
         </li>
@@ -36,6 +39,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
 };
 
 const getUserPosts = async (userId: number | undefined) => {
-  const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
+  // const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
+  const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
   return data.data;
 };

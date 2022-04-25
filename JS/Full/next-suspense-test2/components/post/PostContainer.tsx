@@ -1,24 +1,21 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC, Suspense } from 'react';
-import { useQuery } from 'react-query';
+import { FC, Suspense, useCallback, useState } from 'react';
 
-import { User } from '../../types/user';
 import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
 import { PostList2 } from './PostList2';
 
-export const PostContainer: FC = () => {
-  const { query } = useRouter();
-  const userId: number = query.id ? Number(query.id) : 1;
+type Props = {
+  queryId: string;
+};
 
-  const { data: users } = useQuery(['users'], getUsers, {
-    suspense: true,
-    enabled: !!userId,
-  });
+export const PostContainer: FC<Props> = ({ queryId }) => {
+  const [selectedUserId, setSelectedUserId] = useState(Number(queryId));
 
-  if (!query.id) return <h1>queryが取得できてない</h1>;
+  const handleSelectedUserId = useCallback((id: number) => {
+    setSelectedUserId(id);
+  }, []);
 
   return (
     <div>
@@ -26,17 +23,14 @@ export const PostContainer: FC = () => {
         <a>Home</a>
       </Link>
       <div style={{ display: 'flex' }}>
-        <UserList2 users={users!} />
-        {/* <Suspense fallback={<h1>投稿をローディング中です........</h1>}> */}
-        <Suspense fallback={<Spinner />}>
-          <PostList2 userId={userId} />
+        <Suspense fallback={<h1 style={{ color: 'tomato' }}>全体をローディング中です........</h1>}>
+          <UserList2 selectedUserId={selectedUserId} handleSelectedUserId={handleSelectedUserId} />
+          {/* <Suspense fallback={<h1>投稿をローディング中です........</h1>}> */}
+          <Suspense fallback={<Spinner />}>
+            <PostList2 userId={selectedUserId} />
+          </Suspense>
         </Suspense>
       </div>
     </div>
   );
-};
-
-const getUsers = async () => {
-  const data = await axios.get<User[]>('http://localhost:4000/users');
-  return data.data;
 };
