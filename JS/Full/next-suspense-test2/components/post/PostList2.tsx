@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { Post } from '../../types/post';
 import { CommentList } from '../comment';
 import { CommentSection } from '../comment/CommentSection';
+import { PostItem2 } from './PostItem2';
 
 type Props = {
   userId: number;
@@ -19,22 +20,19 @@ export const PostList2: FC<Props> = ({ userId }) => {
   console.log('PostList2 render', userId);
 
   return (
-    <div>
+    <section>
       <ul>
         <li>
-          {posts?.map((p) => (
-            <div key={p.id} style={{ background: 'lightyellow', padding: '1rem', marginBottom: '1rem' }}>
-              <p>タイトル：{p.title}</p>
-              <p>本文：</p>
-              <p>{p.body}</p>
+          {posts?.map((post) => (
+            <PostItem2 key={post.id} post={post}>
               <CommentSection>
-                <CommentList postId={p.id} />
+                <CommentList postId={post.id} />
               </CommentSection>
-            </div>
+            </PostItem2>
           ))}
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 
