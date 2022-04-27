@@ -20,7 +20,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
   console.log('PostList2 render', userId);
 
   return (
-    <section>
+    <section style={{ width: '500px' }}>
       <ul>
         <li>
           {posts?.map((post) => (
