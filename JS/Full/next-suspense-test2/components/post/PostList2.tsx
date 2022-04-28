@@ -37,7 +37,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
 };
 
 const getUserPosts = async (userId: number | undefined) => {
-  // const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
-  const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+  const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
+  // const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
   return data.data;
 };

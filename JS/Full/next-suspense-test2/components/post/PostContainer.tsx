@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { FC, Suspense, useCallback, useState } from 'react';
+import { FC, Suspense, useCallback, useState, useTransition } from 'react';
 
 import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
@@ -14,8 +14,12 @@ type Props = {
 export const PostContainer: FC<Props> = ({ queryId }) => {
   const [selectedUserId, setSelectedUserId] = useState(Number(queryId));
 
+  const [isPending, startTransition] = useTransition();
+
   const handleSelectedUserId = useCallback((id: number) => {
-    setSelectedUserId(id);
+    startTransition(() => {
+      setSelectedUserId(id);
+    });
   }, []);
 
   return (
@@ -27,13 +31,13 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
         <Suspense fallback={<h1 style={{ color: 'tomato' }}>全体をローディング中です........</h1>}>
           <UserList2 selectedUserId={selectedUserId} handleSelectedUserId={handleSelectedUserId} />
           {/* <Suspense fallback={<h1>投稿をローディング中です........</h1>}> */}
-          <Suspense
+          {/* <Suspense
             fallback={
               <div style={{ width: '500px', height: '300px', background: 'lightyellow' }}></div>
             }
-          >
-            <PostList2 userId={selectedUserId} />
-          </Suspense>
+          > */}
+          <PostList2 userId={selectedUserId} />
+          {/* </Suspense> */}
           <Suspense fallback={<Spinner />}>
             <Weather />
           </Suspense>
