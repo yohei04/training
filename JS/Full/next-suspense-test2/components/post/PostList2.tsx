@@ -19,31 +19,29 @@ export const PostList2: FC<Props> = ({ userId }) => {
     enabled: !!userId,
   });
 
-  console.log({ posts });
-
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const queryClient = useQueryClient();
-  const mutation = useMutation(() => createPost(userId, title, body), {
+  const mutation = useMutation(createPost, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['userPosts', userId]);
-      // queryClient.setQueryData(['userPosts', userId], data);
+      // queryClient.invalidateQueries(['userPosts', userId]);
+      queryClient.setQueryData(['userPosts', userId], (prevPosts: Post[] | undefined) =>
+        prevPosts ? [data.data, ...prevPosts] : [data.data]
+      );
     },
     onError: (err) => {
-      console.error(err);
+      console.error('エラーが起きました', err);
     },
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userId || !title || !body) return;
-    await mutation.mutate();
+    mutation.mutate({ userId, title, body });
     setTitle('');
     setBody('');
   };
-
-  // if (mutation.isLoading) return <div>作成中....</div>;
 
   console.log('PostList2 render', userId);
 
@@ -58,6 +56,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
             <input
               className="w-full border-2"
               id="title"
+              name="title"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.currentTarget.value)}
@@ -70,6 +69,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
             <textarea
               className="w-full border-2"
               id="body"
+              name="body"
               value={body}
               onChange={(e) => setBody(e.currentTarget.value)}
             />
@@ -102,7 +102,13 @@ const getUserPosts = async (userId: number | undefined) => {
   return data.data.reverse();
 };
 
-const createPost = async (userId: number, title: string, body: string) => {
-  const data = await axios.post<Post>('http://localhost:4000/posts', { userId, title, body });
-  return data.data;
+type CreatePostDTO = {
+  userId: number;
+  title: string;
+  body: string;
+};
+
+const createPost = (newPost: CreatePostDTO) => {
+  const data = axios.post<Post>('http://localhost:4000/posts', newPost);
+  return data;
 };

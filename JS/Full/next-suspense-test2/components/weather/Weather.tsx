@@ -9,8 +9,6 @@ export const Weather: FC = () => {
     suspense: true,
   });
 
-  console.log({ weather });
-
   return (
     <section>
       <div style={{ background: 'lightskyblue', padding: '0.01rem 1rem' }}>
