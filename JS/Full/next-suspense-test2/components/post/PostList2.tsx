@@ -23,11 +23,11 @@ export const PostList2: FC<Props> = ({ userId }) => {
   const [body, setBody] = useState('');
 
   const queryClient = useQueryClient();
-  const mutation = useMutation(createPost, {
+  const { mutate: updateFromResponse, isLoading } = useMutation(createPost, {
     onSuccess: (data) => {
       // queryClient.invalidateQueries(['userPosts', userId]);
-      queryClient.setQueryData(['userPosts', userId], (prevPosts: Post[] | undefined) =>
-        prevPosts ? [data.data, ...prevPosts] : [data.data]
+      queryClient.setQueryData<Post[]>(['userPosts', userId], (old) =>
+        old ? [data.data, ...old] : []
       );
     },
     onError: (err) => {
@@ -35,18 +35,52 @@ export const PostList2: FC<Props> = ({ userId }) => {
     },
   });
 
+  const { mutate: optimisticUpdates } = useMutation(createPost, {
+    // When mutate is called:
+    onMutate: async (newPost: CreatePostDTO) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries(['userPosts', userId]);
+
+      // Snapshot the previous value
+      const previousPosts = queryClient.getQueryData(['userPosts', userId]);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData<Post[]>(['userPosts', userId], (old) =>
+        old ? [{ id: old.length + 1, ...newPost }, ...old] : []
+      );
+      // Return a context object with the snapshotted value
+      return { previousPosts };
+    },
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (err, newPost, context) => {
+      if (context?.previousPosts) {
+        queryClient.setQueryData(['userPosts', userId], context?.previousPosts);
+      }
+    },
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(['userPosts', userId]);
+    },
+  });
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userId || !title || !body) return;
-    mutation.mutate({ userId, title, body });
-    setTitle('');
-    setBody('');
+    if ((e.nativeEvent as any).submitter.name === 'post') {
+      console.log('post');
+      updateFromResponse({ userId, title, body });
+    } else {
+      console.log('optimistic');
+      optimisticUpdates({ userId, title, body });
+    }
+    // setTitle('');
+    // setBody('');
   };
 
   console.log('PostList2 render', userId);
 
   return (
-    <section className={clsx('w-[30rem]', { 'opacity-50': mutation.isLoading })}>
+    <section className={clsx('w-[30rem]', { 'opacity-50': isLoading })}>
       <form onSubmit={onSubmit}>
         <div>
           <div>
@@ -75,23 +109,33 @@ export const PostList2: FC<Props> = ({ userId }) => {
             />
           </div>
         </div>
-        <div className="text-right">
-          <button className="bg-lime-300 px-4 py-1" type="submit">
-            {mutation.isLoading ? <Spinner /> : '投稿'}
+        <div className="text-right space-x-2">
+          <button
+            className={'bg-lime-300 px-4 py-1 disabled:opacity-50'}
+            type="submit"
+            name="post"
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : '投稿'}
+          </button>
+          <button className="bg-indigo-300 px-4 py-1" type="submit" name="optimistic-updates-post">
+            投稿(Optimistic Updates)
           </button>
         </div>
       </form>
-      <ul>
-        <li>
-          {posts?.map((post) => (
-            <PostItem2 key={post.id} post={post}>
-              <CommentSection>
-                <CommentList postId={post.id} />
-              </CommentSection>
-            </PostItem2>
-          ))}
-        </li>
-      </ul>
+      <div className="mt-4">
+        <ul>
+          <li>
+            {posts?.map((post) => (
+              <PostItem2 key={post.id} post={post}>
+                <CommentSection>
+                  <CommentList postId={post.id} />
+                </CommentSection>
+              </PostItem2>
+            ))}
+          </li>
+        </ul>
+      </div>
     </section>
   );
 };

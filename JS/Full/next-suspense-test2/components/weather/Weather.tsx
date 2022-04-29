@@ -11,10 +11,11 @@ export const Weather: FC = () => {
 
   return (
     <section>
-      <div style={{ background: 'lightskyblue', padding: '0.01rem 1rem' }}>
+      <div className="bg-blue-200 p-3">
         <p>天気：{weather?.weather.description}</p>
         <p>気温：{weather?.temp}°</p>
         <p>都市：{weather?.city_name}</p>
+        <p>{weather?.ob_time}現在</p>
       </div>
     </section>
   );
