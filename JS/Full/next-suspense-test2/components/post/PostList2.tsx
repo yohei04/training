@@ -1,10 +1,12 @@
 import axios from 'axios';
+import clsx from 'clsx';
 import React, { FC, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { Post } from '../../types/post';
 import { CommentList } from '../comment';
 import { CommentSection } from '../comment/CommentSection';
+import { Spinner } from '../spinner';
 import { PostItem2 } from './PostItem2';
 
 type Props = {
@@ -17,13 +19,16 @@ export const PostList2: FC<Props> = ({ userId }) => {
     enabled: !!userId,
   });
 
+  console.log({ posts });
+
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const queryClient = useQueryClient();
   const mutation = useMutation(() => createPost(userId, title, body), {
-    onSuccess: () => {
-      queryClient.invalidateQueries();
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['userPosts', userId]);
+      // queryClient.setQueryData(['userPosts', userId], data);
     },
     onError: (err) => {
       console.error(err);
@@ -43,7 +48,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
   console.log('PostList2 render', userId);
 
   return (
-    <section style={{ width: '500px' }}>
+    <section className={clsx('w-[30rem]', { 'opacity-50': mutation.isLoading })}>
       <form onSubmit={onSubmit}>
         <div>
           <div>
@@ -72,7 +77,7 @@ export const PostList2: FC<Props> = ({ userId }) => {
         </div>
         <div className="text-right">
           <button className="bg-lime-300 px-4 py-1" type="submit">
-            投稿
+            {mutation.isLoading ? <Spinner /> : '投稿'}
           </button>
         </div>
       </form>
