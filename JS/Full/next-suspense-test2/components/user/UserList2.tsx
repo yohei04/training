@@ -16,22 +16,27 @@ export const UserList2: FC<Props> = ({ selectedUserId, handleSelectedUserId }) =
   });
 
   return (
-    <ul>
-      {users?.map((u) => (
-        <li key={u.id}>
-          <p
-            style={{ borderBottom: u.id === selectedUserId ? '2px solid lightblue' : '2px solid transparent' }}
-            onClick={() => handleSelectedUserId(u.id)}
-          >
-            <Link href={`/user/${u.id}`}>
-              <a>
-                {u.id}. {u.name}
-              </a>
-            </Link>
-          </p>
-        </li>
-      ))}
-    </ul>
+    <div className="w-32 p-4">
+      <ul>
+        {users?.map((u) => (
+          <li key={u.id}>
+            <p
+              style={{
+                borderBottom:
+                  u.id === selectedUserId ? '2px solid lightblue' : '2px solid transparent',
+              }}
+              onClick={() => handleSelectedUserId(u.id)}
+            >
+              <Link href={`/user/${u.id}`}>
+                <a>
+                  {u.id}. {u.name}
+                </a>
+              </Link>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
