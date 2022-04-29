@@ -73,8 +73,8 @@ export const PostList2: FC<Props> = ({ userId }) => {
       console.log('optimistic');
       optimisticUpdates({ userId, title, body });
     }
-    // setTitle('');
-    // setBody('');
+    setTitle('');
+    setBody('');
   };
 
   console.log('PostList2 render', userId);
@@ -118,22 +118,22 @@ export const PostList2: FC<Props> = ({ userId }) => {
           >
             {isLoading ? <Spinner /> : '投稿'}
           </button>
-          <button className="bg-indigo-300 px-4 py-1" type="submit" name="optimistic-updates-post">
+          <button className="bg-green-200 px-4 py-1" type="submit" name="optimistic-updates-post">
             投稿(Optimistic Updates)
           </button>
         </div>
       </form>
       <div className="mt-4">
-        <ul>
-          <li>
-            {posts?.map((post) => (
-              <PostItem2 key={post.id} post={post}>
+        <ul className="space-y-4">
+          {posts?.map((post) => (
+            <li key={post.id}>
+              <PostItem2 post={post}>
                 <CommentSection>
                   <CommentList postId={post.id} />
                 </CommentSection>
               </PostItem2>
-            ))}
-          </li>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -153,6 +153,5 @@ type CreatePostDTO = {
 };
 
 const createPost = (newPost: CreatePostDTO) => {
-  const data = axios.post<Post>('http://localhost:4000/posts', newPost);
-  return data;
+  return axios.post<Post>('http://localhost:4000/posts', newPost);
 };
