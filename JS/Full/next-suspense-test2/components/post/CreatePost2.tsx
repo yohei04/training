@@ -100,7 +100,7 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
       </div>
       <div className="text-right space-x-2">
         <button
-          className={'bg-lime-300 px-4 py-1 disabled:opacity-50'}
+          className='bg-lime-300 px-4 py-1 disabled:opacity-50'
           type="submit"
           name="post"
           disabled={isLoading}

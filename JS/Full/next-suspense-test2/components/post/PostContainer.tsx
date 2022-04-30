@@ -36,18 +36,25 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
           'opacity-50': isPending,
         })}
       >
-        <Suspense fallback={<div>ユーザーを読み込み中です........</div>}>
-          <UserList2 selectedUserId={selectedUserId} handleSelectedUserId={handleSelectedUserId} />
-        </Suspense>
-        <section>
+        <section className="p-4">
+          <Suspense fallback={<div>ユーザーを読み込み中です........</div>}>
+            <UserList2
+              selectedUserId={selectedUserId}
+              handleSelectedUserId={handleSelectedUserId}
+            />
+          </Suspense>
+        </section>
+        <section className="p-4">
           <CreatePost2 userId={selectedUserId} />
           <Suspense fallback={<div>投稿を読み込み中です........</div>}>
             <PostList2 userId={selectedUserId} />
           </Suspense>
         </section>
-        <Suspense fallback={<Spinner />}>
-          <Weather />
-        </Suspense>
+        <section className="p-4">
+          <Suspense fallback={<Spinner />}>
+            <Weather />
+          </Suspense>
+        </section>
       </div>
       {/* </Suspense> */}
     </div>
