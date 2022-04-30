@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { FC, Suspense, useCallback, useState, useTransition } from 'react';
 
+import { FX } from '../fx';
 import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
 import { Weather } from '../weather';
@@ -32,7 +33,7 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
       <span>{isPending && 'ペンディング中'}</span>
       {/* <Suspense fallback={<h1 style={{ color: 'tomato' }}>全体をローディング中です........</h1>}> */}
       <div
-        className={clsx('grid grid-cols-[150px_minmax(300px,_1fr)_200px]', {
+        className={clsx('grid grid-cols-[150px_minmax(300px,_1fr)_300px]', {
           'opacity-50': isPending,
         })}
       >
@@ -50,9 +51,12 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
             <PostList2 userId={selectedUserId} />
           </Suspense>
         </section>
-        <section className="p-4">
+        <section className="p-4 space-y-6">
           <Suspense fallback={<Spinner />}>
             <Weather />
+          </Suspense>
+          <Suspense fallback={<Spinner />}>
+            <FX />
           </Suspense>
         </section>
       </div>
