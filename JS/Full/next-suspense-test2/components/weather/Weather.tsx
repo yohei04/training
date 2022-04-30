@@ -9,13 +9,16 @@ export const Weather: FC = () => {
     suspense: true,
   });
 
+  const lastUpdatedDay = new Date((weather?.ts ?? 0) * 1000);
+  const lastUpdatedDayStr = lastUpdatedDay.toLocaleString().slice(0, -3);
+
   return (
     <section className="bg-blue-200 p-3">
-      <h3 className='font-bold mb-1'>今日の天気</h3>
+      <h3 className="font-bold mb-1">今日の天気</h3>
       <p>天気：{weather?.weather.description}</p>
       <p>気温：{weather?.temp}°</p>
       <p>都市：{weather?.city_name}</p>
-      <p>{weather?.ob_time}現在</p>
+      <p>{lastUpdatedDayStr}現在</p>
     </section>
   );
 };

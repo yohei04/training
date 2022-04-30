@@ -8,7 +8,7 @@ export const FX: FC = () => {
   });
 
   const lastUpdatedDay = new Date(fxData.time_last_update_utc);
-  const lastUpdatedDayStr = lastUpdatedDay.toLocaleString('ja-JP').slice(0, -3);
+  const lastUpdatedDayStr = lastUpdatedDay.toLocaleString().slice(0, -3);
 
   return (
     <section className="bg-blue-200 p-3">

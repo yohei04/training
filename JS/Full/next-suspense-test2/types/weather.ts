@@ -4,6 +4,7 @@ export type Weather = {
   ob_time: string;
   rh: number;
   temp: number;
+  ts: number;
   weather: {
     icon: string;
     code: number;
