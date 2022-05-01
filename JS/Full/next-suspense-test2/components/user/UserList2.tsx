@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
 import { User } from '../../types/user';
 
 type Props = {
@@ -19,7 +20,7 @@ export const UserList2: FC<Props> = ({ selectedUserId, handleSelectedUserId }) =
   return (
     <ul>
       {users?.map((u) => (
-        <li className='mb-2' key={u.id}>
+        <li className="mb-2" key={u.id}>
           <Link href={`/user/${u.id}`}>
             <a
               className={clsx('border-b-2', {
@@ -40,5 +41,6 @@ export const UserList2: FC<Props> = ({ selectedUserId, handleSelectedUserId }) =
 const getUsers = async () => {
   const data = await axios.get<User[]>('http://localhost:4000/users');
   // const data = await axios.get<User[]>('https://jsonplaceholder.typicode.com/users');
+  await sleep(1000);
   return data.data;
 };

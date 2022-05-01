@@ -2,6 +2,8 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
+
 export const FX: FC = () => {
   const { data: fxData } = useQuery(['fx'], getFx, {
     suspense: true,
@@ -24,7 +26,6 @@ export const FX: FC = () => {
 
 const getFx = async () => {
   const data = await axios.get(`https://open.er-api.com/v6/latest/JPY`);
-  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-  await sleep(4000);
+  await sleep(2000);
   return data.data;
 };

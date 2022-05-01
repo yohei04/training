@@ -2,6 +2,8 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
+
 type Props = {
   text: string;
 };
@@ -15,7 +17,7 @@ export const Translate: FC<Props> = ({ text }) => {
       enabled: !!text,
     }
   );
-  
+
   return (
     <>
       <p>翻訳：</p>
@@ -32,5 +34,6 @@ const getTranslate = async (
   const data = await axios.get(
     `https://script.google.com/macros/s/AKfycbzZtvOvf14TaMdRIYzocRcf3mktzGgXvlFvyczo/exec?text=${text}&source=en&target=ja`
   );
+  // await sleep(1000);
   return data.data;
 };

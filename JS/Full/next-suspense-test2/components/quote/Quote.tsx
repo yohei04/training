@@ -2,6 +2,7 @@ import axios from 'axios';
 import { FC, Suspense } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
 import { Spinner } from '../spinner';
 import { Translate } from './Translate';
 
@@ -30,5 +31,6 @@ const getQuote = async () => {
   const data = await axios.get(
     `https://corsanywhere.herokuapp.com/https://zenquotes.io/api/random`
   );
+  await sleep(4000);
   return data.data[0];
 };

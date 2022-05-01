@@ -2,6 +2,7 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
 import { Weather as WeatherType } from '../../types/weather';
 
 export const Weather: FC = () => {
@@ -27,5 +28,6 @@ const getWeather = async () => {
   const data = await axios.get<{ data: WeatherType[] }>(
     `https://api.weatherbit.io/v2.0/current?lang=ja&city=Tokyo&key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
   );
+  await sleep(1000);
   return data.data.data[0];
 };

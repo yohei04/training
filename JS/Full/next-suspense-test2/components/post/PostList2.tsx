@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { useQuery } from 'react-query';
 
+import { sleep } from '../../function/sleep';
 import { Post } from '../../types/post';
 import { CommentList, CommentSection } from '../comment';
 import { PostItem2 } from './PostItem2';
@@ -39,7 +40,6 @@ export const PostList2: FC<Props> = ({ userId }) => {
 
   return (
     <section>
-
       <div>
         <input
           className="w-full border-2"
@@ -74,5 +74,6 @@ export const PostList2: FC<Props> = ({ userId }) => {
 const getUserPosts = async (userId: number | undefined) => {
   const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
   // const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+  await sleep(2000);
   return data.data.reverse();
 };
