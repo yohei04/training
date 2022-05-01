@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FC, Suspense, useCallback, useState, useTransition } from 'react';
 
 import { FX } from '../fx';
+import { Quote } from '../quote';
 import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
 import { Weather } from '../weather';
@@ -57,6 +58,9 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
           </Suspense>
           <Suspense fallback={<Spinner />}>
             <FX />
+          </Suspense>
+          <Suspense fallback={<Spinner />}>
+            <Quote />
           </Suspense>
         </section>
       </div>

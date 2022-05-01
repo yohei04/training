@@ -24,5 +24,7 @@ export const FX: FC = () => {
 
 const getFx = async () => {
   const data = await axios.get(`https://open.er-api.com/v6/latest/JPY`);
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  await sleep(4000);
   return data.data;
 };
