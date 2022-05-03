@@ -8,8 +8,7 @@ import { Quote } from '../quote';
 import { Spinner } from '../spinner';
 import { UserList2 } from '../user/UserList2';
 import { Weather } from '../weather';
-import { CreatePost2 } from './';
-import { PostList2 } from './PostList2';
+import { PostListSection2 } from './';
 
 type Props = {
   queryId: string;
@@ -19,7 +18,6 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
   const [selectedUserId, setSelectedUserId] = useState(Number(queryId));
 
   const [isPending, startTransition] = useTransition();
-
   const handleSelectedUserId = useCallback((id: number) => {
     // startTransition(() => {
     setSelectedUserId(id);
@@ -47,15 +45,12 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
           </Suspense>
         </section>
         <section className="p-4">
-          <CreatePost2 userId={selectedUserId} />
-          <Suspense fallback={<div>投稿を読み込み中です........</div>}>
-            <PostList2 userId={selectedUserId} />
-          </Suspense>
+          <PostListSection2 userId={selectedUserId} />
         </section>
         <section className="p-4 space-y-6">
-          <Suspense fallback={<Spinner />}>
-            <Weather />
-          </Suspense>
+          {/* <Suspense fallback={<Spinner />}>
+              <Weather />
+            </Suspense> */}
           <Suspense fallback={<Spinner />}>
             <FX />
           </Suspense>
