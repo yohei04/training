@@ -52,7 +52,6 @@ export const PostList2: FC<Props> = ({ userId }) => {
         />
       </div>
       <div className="mt-4">
-        {/* <Suspense fallback={<h1>投稿をローディング中です........</h1>}> */}
         <Suspense fallback={<div className="h-32 bg-yellow-100 "></div>}>
           <ul className="space-y-4">
             {filteredPosts?.map((post) => (

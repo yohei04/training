@@ -7,6 +7,8 @@ import {
   useTransition,
 } from 'react';
 
+import { Spinner } from '../spinner';
+
 type Props = {
   children: ReactNode;
 };
@@ -26,7 +28,7 @@ export const CommentSection: FC<Props> = ({ children }) => {
       <p style={{ cursor: 'pointer', opacity: isPending ? 0.5 : 1 }} onClick={handleShowComment}>
         コメント表示
       </p>
-      <Suspense fallback={<h1>コメントをローディング中です........</h1>}>{isShowComment && children}</Suspense>
+      <Suspense fallback={<Spinner />}>{isShowComment && children}</Suspense>
     </section>
   );
 };

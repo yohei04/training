@@ -20,7 +20,7 @@ export const Quote: FC = () => {
         </p>
         <p className="text-right">- {quote?.a} -</p>
         <Suspense fallback={<Spinner />}>
-          <Translate text={quote?.q} />
+          {/* <Translate text={quote?.q} /> */}
         </Suspense>
       </section>
     </>

@@ -96,6 +96,24 @@
       "postId": 1,
       "userId": 3,
       "body": "comments 6"
+    },
+    {
+      "id": 7,
+      "postId": 4,
+      "userId": 1,
+      "body": "comments 7"
+    },
+    {
+      "id": 8,
+      "postId": 4,
+      "userId": 1,
+      "body": "comments 8"
+    },
+    {
+      "id": 9,
+      "postId": 4,
+      "userId": 1,
+      "body": "comments 9"
     }
   ],
   "likes": [
