@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 
+import { ClickToComponent } from 'click-to-react-component';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
+      <ClickToComponent />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
