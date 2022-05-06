@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { Post } from '../../types/post';
 import { Spinner } from '../spinner';
+import { usePost } from './';
 
 type Props = {
   userId: number;
@@ -11,9 +12,7 @@ type Props = {
 
 export const CreatePost2: FC<Props> = ({ userId }) => {
   const queryClient = useQueryClient();
-
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const { state, handleText, resetText } = usePost();
 
   const { mutate: updateFromResponse, isLoading } = useMutation(createPost, {
     onSuccess: (data) => {
@@ -57,16 +56,15 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userId || !title || !body) return;
+    if (!userId || !state.title || !state.body) return;
     if ((e.nativeEvent as any).submitter.name === 'post') {
       console.log('post');
-      updateFromResponse({ userId, title, body });
+      updateFromResponse({ userId, title: state.title, body: state.body });
     } else {
       console.log('optimistic');
-      optimisticUpdates({ userId, title, body });
+      optimisticUpdates({ userId, title: state.title, body: state.body });
     }
-    setTitle('');
-    setBody('');
+    resetText();
   };
 
   return (
@@ -81,8 +79,8 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
             id="title"
             name="title"
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
+            value={state.title}
+            onChange={handleText}
           />
         </div>
         <div>
@@ -93,14 +91,14 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
             className="w-full border-2"
             id="body"
             name="body"
-            value={body}
-            onChange={(e) => setBody(e.currentTarget.value)}
+            value={state.body}
+            onChange={handleText}
           />
         </div>
       </div>
       <div className="text-right space-x-2">
         <button
-          className='bg-lime-300 px-4 py-1 disabled:opacity-50'
+          className="bg-lime-300 px-4 py-1 disabled:opacity-50"
           type="submit"
           name="post"
           disabled={isLoading}

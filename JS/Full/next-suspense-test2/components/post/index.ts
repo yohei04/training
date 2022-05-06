@@ -5,3 +5,6 @@ export * from './PostList2';
 export * from './PostListSearch2';
 export * from './PostItem2';
 export * from './CreatePost2';
+
+export * from './usePost';
+
