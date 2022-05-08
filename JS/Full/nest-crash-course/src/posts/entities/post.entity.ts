@@ -6,4 +6,13 @@ export class PostEntity {
 
   @ApiProperty()
   title: string;
+
+  @ApiProperty()
+  body: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }
