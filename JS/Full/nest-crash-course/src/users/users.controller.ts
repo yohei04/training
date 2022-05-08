@@ -5,9 +5,10 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { Post as PostModel, Prisma, User as UserModel } from '@prisma/client';
 
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -15,22 +16,28 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @ApiOkResponse({ type: User, isArray: true })
-  @ApiQuery({ name: 'name', required: false })
+  // @ApiOkResponse({ type: User, isArray: true })
+  // @ApiQuery({ name: 'name', required: false })
+  // @Get()
+  // getUsers(@Query('name') name?: string): User[] {
+  //   return this.usersService.findAll(name);
+  // }
+
   @Get()
-  getUsers(@Query('name') name?: string): User[] {
-    return this.usersService.findAll(name);
+  @ApiOkResponse({ type: [UserEntity] })
+  async findAll(): Promise<UserModel[]> {
+    return this.usersService.findAll();
   }
 
-  @ApiOkResponse({ type: User, description: 'The user' })
   @Get(':id')
-  getUserById(@Param('id') id: string): User {
+  @ApiOkResponse({ type: UserEntity, description: 'The user' })
+  getUserById(@Param('id') id: string) {
     return this.usersService.findById(Number(id));
   }
 
-  @ApiCreatedResponse({ type: User })
   @Post()
-  createUser(@Body() body: CreateUserDto): User {
-    return this.usersService.createUser(body);
+  @ApiCreatedResponse({ type: UserEntity })
+  createUser(@Body() body: CreateUserDto) {
+    return this.usersService.create(body);
   }
 }

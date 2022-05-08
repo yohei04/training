@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Post as PostModel, Prisma } from '@prisma/client';
 
 import { CreatePostDto } from './dto/create-post.dto';
@@ -42,7 +42,8 @@ export class PostsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  @ApiOkResponse({ type: PostEntity })
+  async remove(@Param('id') id: string) {
+    return this.postsService.remove(Number(id));
   }
 }

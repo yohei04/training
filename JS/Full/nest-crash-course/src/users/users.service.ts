@@ -1,33 +1,40 @@
+import { PrismaService } from 'src/prizma/prisma.service';
+
 import { Injectable } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [
-    { id: 0, name: 'Marius' },
-    { id: 1, name: 'Marius' },
-    { id: 2, name: 'Jane' },
-  ];
+  // private users: User[] = [
+  //   { id: 0, name: 'Marius' },
+  //   { id: 1, name: 'Marius' },
+  //   { id: 2, name: 'Jane' },
+  // ];
 
-  findAll(name?: string): User[] {
-    if (name) {
-      return this.users.filter((user) => user.name === name);
-    }
+  constructor(private prisma: PrismaService) {}
 
-    return this.users;
+  findAll() {
+    return this.prisma.user.findMany();
   }
 
-  findById(userId: number): User {
-    return this.users.find((user) => user.id === userId);
+  findById(id: number) {
+    return this.prisma.user.findUnique({ where: { id: id } });
   }
 
-  createUser(createUserDto: CreateUserDto): User {
-    const newUser = { id: Date.now(), ...createUserDto };
+  create(createUserDto: CreateUserDto) {
+    return this.prisma.user.create({ data: createUserDto });
+  }
 
-    this.users.push(newUser);
+  update(id: number, updateProductDto: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id: id },
+      data: updateProductDto,
+    });
+  }
 
-    return newUser;
+  remove(id: number) {
+    return this.prisma.user.delete({ where: { id: id } });
   }
 }

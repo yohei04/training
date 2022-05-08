@@ -10,9 +10,18 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createPostDto: Prisma.PostCreateInput) {
+  create(createPostDto: CreatePostDto) {
+    const { title, body, authorId } = createPostDto;
     return this.prisma.post.create({
-      data: createPostDto,
+      data: {
+        title,
+        body,
+        author: {
+          connect: {
+            id: authorId,
+          },
+        },
+      },
     });
   }
 
@@ -34,6 +43,6 @@ export class PostsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`;
+    return this.prisma.post.delete({ where: { id } });
   }
 }
