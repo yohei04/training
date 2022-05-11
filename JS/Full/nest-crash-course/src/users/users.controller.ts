@@ -1,18 +1,13 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Post as PostModel, Prisma, User as UserModel } from '@prisma/client';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 
-@ApiTags('users')
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -25,19 +20,19 @@ export class UsersController {
 
   @Get()
   @ApiOkResponse({ type: [UserEntity] })
-  async findAll(): Promise<UserModel[]> {
+  async findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: UserEntity, description: 'The user' })
-  getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id') id: string) {
     return this.usersService.findById(Number(id));
   }
 
   @Post()
   @ApiCreatedResponse({ type: UserEntity })
-  createUser(@Body() body: CreateUserDto) {
+  async createUser(@Body() body: CreateUserDto) {
     return this.usersService.create(body);
   }
 }

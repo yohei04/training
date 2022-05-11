@@ -7,7 +7,12 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Post as PostModel, Prisma } from '@prisma/client';
 
 import { CreatePostDto } from './dto/create-post.dto';
@@ -22,22 +27,28 @@ export class PostsController {
 
   @Post()
   @ApiCreatedResponse({ type: PostEntity })
-  create(@Body() createPostDto: CreatePostDto) {
+  @ApiOperation({
+    summary: '投稿作成',
+    description: '投稿作成の説明',
+  })
+  async create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
 
   @Get()
-  findAll() {
+  @ApiOkResponse({ type: [PostEntity] })
+  async findAll() {
     return this.postsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne({ id: +id });
+  @ApiOkResponse({ type: PostEntity })
+  async findById(@Param('id') id: string) {
+    return this.postsService.findById({ id: Number(id) });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(+id, updatePostDto);
   }
 

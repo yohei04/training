@@ -29,7 +29,7 @@ export class PostsService {
     return this.prisma.post.findMany();
   }
 
-  findOne(postWhereUniqueInput: Prisma.PostWhereUniqueInput) {
+  findById(postWhereUniqueInput: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findUnique({
       where: postWhereUniqueInput,
     });
