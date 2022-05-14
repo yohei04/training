@@ -40,7 +40,8 @@ export const PostList2: FC<Props> = ({ userId, deferredSearchWord }) => {
 };
 
 const getUserPosts = async (userId: number | undefined) => {
-  const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
+  const data = await axios.get<Post[]>(`http://localhost:4000/posts/users/${userId}`);
+  // const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
   // const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
   await sleep(2000);
   return data.data.reverse();
