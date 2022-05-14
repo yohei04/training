@@ -35,6 +35,12 @@ export class PostsService {
     });
   }
 
+  findAllByUserId(authorId: Prisma.PostWhereInput) {
+    return this.prisma.post.findMany({
+      where: authorId,
+    });
+  }
+
   update(id: number, updatePostDto: UpdatePostDto) {
     return this.prisma.post.update({
       where: { id },

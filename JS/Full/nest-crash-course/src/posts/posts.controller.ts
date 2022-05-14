@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -40,6 +41,16 @@ export class PostsController {
   @ApiOkResponse({ type: [PostEntity] })
   async findAll() {
     return this.postsService.findAll();
+  }
+
+  @Get('/users/:userId')
+  @ApiOkResponse({ type: [PostEntity] })
+  @ApiOperation({
+    summary: 'ユーザーに紐づく投稿取得',
+    description: '特定のユーザーに紐づく投稿を取得する',
+  })
+  async findAllByUserId(@Param('userId', ParseIntPipe) userId: number) {
+    return await this.postsService.findAllByUserId({ authorId: userId });
   }
 
   @Get(':id')
