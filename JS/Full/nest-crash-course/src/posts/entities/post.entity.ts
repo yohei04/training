@@ -1,18 +1,16 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 export class PostEntity {
-  @ApiProperty()
+  // @ApiProperty()
   id: number;
 
-  @ApiProperty()
+  // @ApiProperty()
   title: string;
 
-  @ApiProperty()
+  // @ApiProperty()
   body: string;
 
-  @ApiProperty()
+  // @ApiProperty()
   createdAt: Date;
 
-  @ApiProperty()
+  // @ApiProperty()
   updatedAt: Date;
 }

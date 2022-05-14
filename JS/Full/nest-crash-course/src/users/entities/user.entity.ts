@@ -1,15 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 export class UserEntity {
-  @ApiProperty()
+  // @ApiProperty()
   id: number;
 
-  @ApiProperty()
+  // @ApiProperty()
   name: string;
 
-  @ApiProperty()
+  // @ApiProperty()
   createdAt: Date;
 
-  @ApiProperty()
+  // @ApiProperty()
   updatedAt: Date;
 }
