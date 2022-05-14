@@ -50,7 +50,7 @@ export class PostsController {
     description: '特定のユーザーに紐づく投稿を取得する',
   })
   async findAllByUserId(@Param('userId', ParseIntPipe) userId: number) {
-    return await this.postsService.findAllByUserId({ authorId: userId });
+    return await this.postsService.findAllByUserId({ userId });
   }
 
   @Get(':id')

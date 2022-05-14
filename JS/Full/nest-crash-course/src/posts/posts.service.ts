@@ -11,14 +11,14 @@ export class PostsService {
   constructor(private prisma: PrismaService) {}
 
   create(createPostDto: CreatePostDto) {
-    const { title, body, authorId } = createPostDto;
+    const { title, body, userId } = createPostDto;
     return this.prisma.post.create({
       data: {
         title,
         body,
-        author: {
+        user: {
           connect: {
-            id: authorId,
+            id: userId,
           },
         },
       },
@@ -35,9 +35,9 @@ export class PostsService {
     });
   }
 
-  findAllByUserId(authorId: Prisma.PostWhereInput) {
+  findAllByUserId(userId: Prisma.PostWhereInput) {
     return this.prisma.post.findMany({
-      where: authorId,
+      where: userId,
     });
   }
 
