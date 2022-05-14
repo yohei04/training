@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -43,18 +44,36 @@ export class PostsController {
 
   @Get(':id')
   @ApiOkResponse({ type: PostEntity })
-  async findById(@Param('id') id: string) {
-    return this.postsService.findById({ id: Number(id) });
+  async findById(@Param('id') id: number) {
+    const post = await this.postsService.findById({ id: Number(id) });
+
+    if (!post) {
+      throw new NotFoundException();
+    }
+
+    return post;
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  async update(@Param('id') id: number, @Body() updatePostDto: UpdatePostDto) {
+    const post = await this.postsService.findById({ id: Number(id) });
+
+    if (!post) {
+      throw new NotFoundException();
+    }
+
     return this.postsService.update(+id, updatePostDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: PostEntity })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
+    const post = await this.postsService.findById({ id: Number(id) });
+
+    if (!post) {
+      throw new NotFoundException();
+    }
+
     return this.postsService.remove(Number(id));
   }
 }
