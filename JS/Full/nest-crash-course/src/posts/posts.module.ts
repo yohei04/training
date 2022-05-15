@@ -6,6 +6,7 @@ import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
 
 @Module({
+  exports: [PostsService],
   controllers: [PostsController],
   providers: [PostsService, PrismaService],
 })

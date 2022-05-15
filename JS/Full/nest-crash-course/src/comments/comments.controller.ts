@@ -1,34 +1,53 @@
+import { PostsService } from 'src/posts/posts.service';
+
 import {
   Body,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentEntity } from './entities/comment.entity';
 
 @Controller('comments')
+@ApiTags('comments')
 export class CommentsController {
-  constructor(private readonly commentsService: CommentsService) {}
+  constructor(
+    private readonly commentsService: CommentsService,
+    private readonly postsService: PostsService,
+  ) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.create(createCommentDto);
-  }
+  @ApiCreatedResponse({ type: [CommentEntity] })
+  async create(@Body() createCommentDto: CreateCommentDto) {
+    const { postId } = createCommentDto;
+    const post = await this.postsService.findById({ id: postId });
 
-  @Get()
-  findAll() {
-    return this.commentsService.findAll();
+    if (!post) {
+      throw new NotFoundException();
+    }
+
+    return this.commentsService.create(createCommentDto);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.commentsService.findOne(+id);
+  }
+
+  @Get('/posts/:postId')
+  @ApiOkResponse({ type: [CommentEntity] })
+  async findAllByPostId(@Param('postId', ParseIntPipe) postId: number) {
+    return await this.commentsService.findAllByPostId(postId);
   }
 
   @Patch(':id')
