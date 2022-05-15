@@ -4,8 +4,8 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 
+import { UserEntity } from '../../__generated__';
 import { sleep } from '../../function/sleep';
-import { User } from '../../types/user';
 
 type Props = {
   selectedUserId: number;
@@ -39,7 +39,7 @@ export const UserList2: FC<Props> = ({ selectedUserId, handleSelectedUserId }) =
 };
 
 const getUsers = async () => {
-  const data = await axios.get<User[]>('http://localhost:4000/users');
+  const data = await axios.get<UserEntity[]>('http://localhost:4000/users');
   // const data = await axios.get<User[]>('https://jsonplaceholder.typicode.com/users');
   await sleep(1000);
   return data.data;

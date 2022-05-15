@@ -1,4 +1,6 @@
-export class PostEntity {
+import { Post } from '@prisma/client';
+
+export class PostEntity implements Post {
   // @ApiProperty()
   id: number;
 
@@ -13,4 +15,6 @@ export class PostEntity {
 
   // @ApiProperty()
   updatedAt: Date;
+
+  userId: number;
 }
