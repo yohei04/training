@@ -13,19 +13,23 @@ type Props = {
 };
 
 export const PostList2: FC<Props> = ({ userId, deferredSearchWord }) => {
-  const { data: posts } = useQuery(['userPosts', userId], () => getUserPosts(userId), {
-    suspense: true,
-    enabled: !!userId,
-  });
+  const { data: posts } = useQuery(
+    ['userPosts', userId, deferredSearchWord],
+    () => getUserPosts(userId, deferredSearchWord),
+    {
+      suspense: true,
+      enabled: !!userId,
+    }
+  );
 
-  const filteredPosts = useMemo(() => {
-    return posts?.filter((post) => post.title.includes(deferredSearchWord));
-  }, [posts, deferredSearchWord]);
+  // const filteredPosts = useMemo(() => {
+  //   return posts?.filter((post) => post.title.includes(deferredSearchWord));
+  // }, [posts, deferredSearchWord]);
 
   return (
     <div className="mt-4">
       <ul className="space-y-4">
-        {filteredPosts?.map((post) => (
+        {posts?.map((post) => (
           <li key={post.id}>
             <PostItem2 post={post}>
               <CommentSection>
@@ -39,10 +43,13 @@ export const PostList2: FC<Props> = ({ userId, deferredSearchWord }) => {
   );
 };
 
-const getUserPosts = async (userId: number | undefined) => {
-  const data = await axios.get<PostEntity[]>(`http://localhost:4000/posts/users/${userId}`);
+const getUserPosts = async (userId: number, searchString: string) => {
+  const data = await axios.get<PostEntity[]>(
+    `http://localhost:4000/posts/filtered-posts/${userId}?searchString=${searchString}`
+  );
+  // const data = await axios.get<PostEntity[]>(`http://localhost:4000/posts/users/${userId}`);
   // const data = await axios.get<Post[]>(`http://localhost:4000/users/${userId}/posts`);
   // const data = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
-  await sleep(2000);
+  await sleep(500);
   return data.data.reverse();
 };

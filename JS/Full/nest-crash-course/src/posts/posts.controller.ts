@@ -8,11 +8,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { Post as PostModel, Prisma } from '@prisma/client';
@@ -51,6 +53,28 @@ export class PostsController {
   })
   async findAllByUserId(@Param('userId', ParseIntPipe) userId: number) {
     return await this.postsService.findAllByUserId({ userId });
+  }
+
+  @Get('filtered-posts/:userId')
+  @ApiOkResponse({ type: [PostEntity] })
+  @ApiQuery({ name: 'searchString', required: false, type: String })
+  async findFilteredPosts(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Query('searchString') searchString = '',
+  ) {
+    return this.postsService.findFilteredPosts({
+      where: {
+        userId,
+        OR: [
+          {
+            title: { contains: searchString },
+          },
+          {
+            body: { contains: searchString },
+          },
+        ],
+      },
+    });
   }
 
   @Get(':id')

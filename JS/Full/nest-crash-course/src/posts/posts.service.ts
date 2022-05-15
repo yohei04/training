@@ -41,6 +41,13 @@ export class PostsService {
     });
   }
 
+  findFilteredPosts(params: { where: Prisma.PostWhereInput }) {
+    const { where } = params;
+    return this.prisma.post.findMany({
+      where,
+    });
+  }
+
   update(id: number, updatePostDto: UpdatePostDto) {
     return this.prisma.post.update({
       where: { id },
