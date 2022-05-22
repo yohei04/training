@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 
 import { PostEntity } from '../../__generated__';
@@ -44,6 +44,7 @@ export const PostList2: FC<Props> = ({ userId, deferredSearchWord }) => {
 };
 
 const getUserPosts = async (userId: number, searchString: string) => {
+  if (searchString === 'aa') throw new Error('「aa」で検索するとエラーになります。');
   const data = await axios.get<PostEntity[]>(
     `http://localhost:4000/posts/filtered-posts/${userId}?searchString=${searchString}`
   );
