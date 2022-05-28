@@ -7,5 +7,8 @@ export class CreateCommentDto {
   content: string;
 
   @IsNotEmpty()
+  userId: number;
+
+  @IsNotEmpty()
   postId: number;
 }
