@@ -54,9 +54,7 @@ export const PostContainer: FC<Props> = ({ queryId }) => {
           <Suspense fallback={<Spinner />}>
             <FX />
           </Suspense>
-          <Suspense fallback={<Spinner />}>
-            <Quote />
-          </Suspense>
+          <Suspense fallback={<Spinner />}>{/* <Quote /> */}</Suspense>
         </section>
       </div>
       {/* </Suspense> */}
