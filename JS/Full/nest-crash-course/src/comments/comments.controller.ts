@@ -2,9 +2,11 @@ import { PostsService } from 'src/posts/posts.service';
 
 import {
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
+  HttpStatus,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -27,13 +29,32 @@ export class CommentsController {
   ) {}
 
   @Post()
-  @ApiCreatedResponse({ type: [CommentEntity] })
+  @ApiCreatedResponse({ type: CommentEntity })
   async create(@Body() createCommentDto: CreateCommentDto) {
-    const { postId } = createCommentDto;
+    const { postId, content } = createCommentDto;
     const post = await this.postsService.findById({ id: postId });
 
     if (!post) {
       throw new NotFoundException();
+    }
+
+    const comments = await this.commentsService.findAll();
+    const isUniqueContent = comments.every(
+      (comment) => comment.content !== content,
+    );
+
+    if (!isUniqueContent) {
+      throw new ConflictException({
+        errors: [
+          {
+            status: HttpStatus.CONFLICT,
+            property: 'content',
+            constraints: {
+              isUnique: '重複しています',
+            },
+          },
+        ],
+      });
     }
 
     return this.commentsService.create(createCommentDto);

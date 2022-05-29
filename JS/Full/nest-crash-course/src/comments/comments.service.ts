@@ -1,9 +1,11 @@
 import { PrismaService } from 'src/prizma/prisma.service';
 
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable } from '@nestjs/common';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentEntity } from './entities/comment.entity';
 
 @Injectable()
 export class CommentsService {
@@ -15,8 +17,10 @@ export class CommentsService {
     });
   }
 
-  findAll() {
-    return `This action returns all comments`;
+  @Get()
+  @ApiOkResponse({ type: [CommentEntity] })
+  async findAll() {
+    return this.prisma.comment.findMany();
   }
 
   findOne(id: number) {

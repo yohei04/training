@@ -63,7 +63,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           <span className="text-red-600">
             {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
           </span>
-          <span className="text-red-600">{errors.content?.types && 'emailを入力してください'}</span>
+          <span className="text-red-600">{errors.content?.types && 'コメントが重複しています'}</span>
           <span className="text-red-600">{errors.content?.message}</span>
         </div>
       </div>
