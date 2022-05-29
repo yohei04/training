@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 import { PostEntity } from '../../__generated__';
 import { sleep } from '../../function/sleep';
-import { CommentList, CommentSection } from '../comment';
+import { CommentList, CommentSection, CreateComment } from '../comment';
 import { PostItem2 } from './PostItem2';
 
 type Props = {
@@ -32,9 +32,10 @@ export const PostList2: FC<Props> = ({ userId, deferredSearchWord }) => {
         {posts?.map((post) => (
           <li key={post.id}>
             <PostItem2 post={post}>
-              <CommentSection>
-                <CommentList postId={post.id} />
-              </CommentSection>
+              <CommentSection
+                create={<CreateComment postId={post.id} />}
+                list={<CommentList postId={post.id} />}
+              />
             </PostItem2>
           </li>
         ))}
