@@ -36,6 +36,6 @@ export class CommentsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} comment`;
+    return this.prisma.comment.delete({ where: { id } });
   }
 }
