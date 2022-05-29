@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 
 import { CommentEntity } from '../../__generated__';
 import { sleep } from '../../function/sleep';
+import { CommentItem } from './CommentItem';
 
 type Props = {
   postId: number;
@@ -16,11 +17,9 @@ export const CommentList: FC<Props> = ({ postId }) => {
   });
 
   return (
-    <ul>
-      {comments?.map((c) => (
-        <li key={c.id}>
-          <p>{c.content}</p>
-        </li>
+    <ul className='space-y-1'>
+      {comments?.map((comment) => (
+        <CommentItem key={comment.id} comment={comment} />
       ))}
     </ul>
   );

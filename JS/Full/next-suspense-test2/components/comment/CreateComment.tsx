@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { CommentEntity, CreateCommentDto } from '../../__generated__';
-import { Spinner } from '../spinner';
 
 type Props = {
   postId: number;
@@ -31,11 +30,9 @@ export const CreateComment: FC<Props> = ({ postId }) => {
       createComment({ userId: 1, postId, content: newComment.content }),
     {
       onSuccess: (data) => {
-        console.log({ data });
-        queryClient.invalidateQueries(['userComments', postId]);
-        // queryClient.setQueryData<CommentEntity[]>(['userComments', postId], (old) =>
-        //   old ? [data.data, ...old] : []
-        // );
+        queryClient.setQueryData<CommentEntity[]>(['userComments', postId], (old) =>
+          old ? [...old, data.data] : []
+        );
       },
       onError: (err) => {
         console.error('エラーが起きました', err);
@@ -48,17 +45,17 @@ export const CreateComment: FC<Props> = ({ postId }) => {
       <div>
         <div>
           <label className="block" htmlFor="content">
-            コンテント:
+            コメント:
           </label>
           <input
             className="w-full border-2"
             {...register('content', { required: true, maxLength: 15 })}
           />
           <span className="text-red-600">
-            {errors.content?.type === 'required' && 'タイトルを入力してください'}
+            {errors.content?.type === 'required' && 'コメントを入力してください'}
           </span>
           <span className="text-red-600">
-            {errors.content?.type === 'maxLength' && 'タイトルは10文字以内で入力してください'}
+            {errors.content?.type === 'maxLength' && 'コメントは10文字以内で入力してください'}
           </span>
         </div>
       </div>
@@ -69,7 +66,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           name="post"
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : '投稿'}
+          投稿
         </button>
       </div>
     </form>
