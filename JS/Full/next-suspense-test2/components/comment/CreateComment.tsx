@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import Error from 'next/error';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
@@ -14,17 +15,6 @@ export const CreateComment: FC<Props> = ({ postId }) => {
   const { register, handleSubmit, setError, formState } = useForm<CreateCommentDto>();
   const { errors, isSubmitting } = formState;
 
-  // const onSubmit: SubmitHandler<CreateCommentDto> = (data) => {
-  //   console.log({ data });
-  //   return createComment({ userId: 1, postId, content: data.content }).catch((error) => {
-  //     console.log(error.response.data.message[0]);
-  //     // if (data.title > data.body) {
-  //     //   setError('title', { message: 'タイトルはボディよりも短くなければなりません。' });
-  //     // }
-  //     // setError('title', { message: error.response.data.message[0] });
-  //   });
-  // };
-
   const { mutate, isLoading } = useMutation(
     (newComment: CreateCommentDto) =>
       createComment({ userId: 1, postId, content: newComment.content }),
@@ -34,14 +24,27 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           old ? [...old, data.data] : []
         );
       },
-      onError: (err) => {
-        console.error('エラーが起きました', err);
+      onError: (err: Error | AxiosError) => {
+        if (axios.isAxiosError(err)) {
+          const errors = err?.response?.data.errors;
+          errors.forEach((error: any) => {
+            setError(error.property, {
+              types: error.constraints,
+            });
+          });
+        } else {
+          console.error(err);
+        }
       },
     }
   );
 
+  const onSubmit = (newComment: CreateCommentDto) => {
+    mutate(newComment);
+  };
+
   return (
-    <form onSubmit={handleSubmit(mutate)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div>
           <label className="block" htmlFor="content">
@@ -49,14 +52,19 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           </label>
           <input
             className="w-full border-2"
-            {...register('content', { required: true, maxLength: 15 })}
+            {...register('content', {
+              required: true,
+              maxLength: 15,
+            })}
           />
           <span className="text-red-600">
             {errors.content?.type === 'required' && 'コメントを入力してください'}
           </span>
           <span className="text-red-600">
-            {errors.content?.type === 'maxLength' && 'コメントは10文字以内で入力してください'}
+            {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
           </span>
+          <span className="text-red-600">{errors.content?.types && 'emailを入力してください'}</span>
+          <span className="text-red-600">{errors.content?.message}</span>
         </div>
       </div>
       <div className="text-right space-x-2">
