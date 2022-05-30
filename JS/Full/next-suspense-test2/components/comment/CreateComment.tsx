@@ -14,6 +14,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
   const queryClient = useQueryClient();
   const { register, handleSubmit, setError, formState } = useForm<CreateCommentDto>();
   const { errors, isSubmitting } = formState;
+  const validationKeys = Object.keys(errors?.content?.types || []);
 
   const { mutate, isLoading } = useMutation(
     (newComment: CreateCommentDto) =>
@@ -63,7 +64,12 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           <span className="text-red-600">
             {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
           </span>
-          <span className="text-red-600">{errors.content?.types && 'コメントが重複しています'}</span>
+          {validationKeys.map((key) => (
+            <span key={key} className="text-red-600">
+              {key === 'isUnique' && '重複しています'}
+              {key === 'maxLength' && 'コメントは10文字以内で入力してください'}
+            </span>
+          ))}
           <span className="text-red-600">{errors.content?.message}</span>
         </div>
       </div>
