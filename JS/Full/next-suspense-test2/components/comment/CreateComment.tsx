@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { CommentEntity, CreateCommentDto } from '../../__generated__';
+import style from './CreateComment.module.css';
 
 type Props = {
   postId: number;
@@ -44,15 +45,19 @@ export const CreateComment: FC<Props> = ({ postId }) => {
     mutate(newComment);
   };
 
+  console.log({ errors });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <div>
+        <fieldset>
           <label className="block" htmlFor="content">
             コメント:
           </label>
           <input
-            className="w-full border-2"
+            // className="w-full border-2"
+            className={style.root}
+            aria-invalid={errors.content ? true : false}
             {...register('content', {
               required: true,
               maxLength: 15,
@@ -61,7 +66,8 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           <span className="text-red-600">
             {errors.content?.type === 'required' && 'コメントを入力してください'}
           </span>
-          <span className="text-red-600">
+          <span className={style.error} role="alert">
+            {/* <span className="text-red-600"> */}
             {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
           </span>
           {validationKeys.map((key) => (
@@ -71,7 +77,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
             </span>
           ))}
           <span className="text-red-600">{errors.content?.message}</span>
-        </div>
+        </fieldset>
       </div>
       <div className="text-right space-x-2">
         <button
@@ -90,3 +96,5 @@ export const CreateComment: FC<Props> = ({ postId }) => {
 const createComment = (newComment: CreateCommentDto) => {
   return axios.post<CommentEntity>('http://localhost:4000/comments', newComment);
 };
+
+// https://stackoverflow.com/questions/60270468/throw-same-error-format-as-class-validator-in-nestjs
