@@ -38,24 +38,24 @@ export class CommentsController {
       throw new NotFoundException();
     }
 
-    const comments = await this.commentsService.findAll();
-    const isUniqueContent = comments.every(
-      (comment) => comment.content !== content,
-    );
+    // const comments = await this.commentsService.findAll();
+    // const isUniqueContent = comments.every(
+    //   (comment) => comment.content !== content,
+    // );
 
-    if (!isUniqueContent) {
-      throw new ConflictException({
-        errors: [
-          {
-            status: HttpStatus.CONFLICT,
-            property: 'content',
-            constraints: {
-              isUnique: '重複しています',
-            },
-          },
-        ],
-      });
-    }
+    // if (!isUniqueContent) {
+    //   throw new ConflictException({
+    //     errors: [
+    //       {
+    //         status: HttpStatus.CONFLICT,
+    //         property: 'content',
+    //         constraints: {
+    //           isUnique: '重複しています',
+    //         },
+    //       },
+    //     ],
+    //   });
+    // }
 
     return this.commentsService.create(createCommentDto);
   }

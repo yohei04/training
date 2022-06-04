@@ -1,3 +1,5 @@
+import { useContainer } from 'class-validator';
+
 import {
   BadRequestException,
   ValidationError,
@@ -11,14 +13,21 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        console.dir({ validationErrors }, { depth: null });
         const errors = validationErrors.map(({ property, constraints }) => ({
           property,
           constraints,
         }));
-        return new BadRequestException({ errors });
+        return new BadRequestException({
+          statusCode: 400,
+          error: 'Bad Request',
+          errors: errors,
+        });
       },
     }),
   );

@@ -1,4 +1,5 @@
 import { PostsModule } from 'src/posts/posts.module';
+import { IsCommentAlreadyExistConstraint } from 'src/validation/IsCommentAlreadyExist';
 
 import { Module } from '@nestjs/common';
 
@@ -8,6 +9,7 @@ import { CommentsService } from './comments.service';
 @Module({
   imports: [PostsModule],
   controllers: [CommentsController],
-  providers: [CommentsService],
+  providers: [CommentsService, IsCommentAlreadyExistConstraint],
+  exports: [CommentsService],
 })
 export class CommentsModule {}
