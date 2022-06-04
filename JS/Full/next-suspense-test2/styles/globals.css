@@ -15,7 +15,8 @@
 
   --color-blue-900: hsl(240, 100%, 50%);
   --color-blue-300: hsl(240, 100%, 70%);
-  --color-blue-100: hsl(240, 100%, 90%);
+  --color-blue-200: hsl(240, 100%, 90%);
+  --color-blue-100: hsl(240, 100%, 96%);
 
   --color-red-900: hsl(0, 100%, 50%);
   --color-red-500: hsl(0, 100%, 80%);
