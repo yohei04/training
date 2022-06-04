@@ -63,20 +63,20 @@ export const CreateComment: FC<Props> = ({ postId }) => {
               maxLength: 15,
             })}
           />
-          <span className="text-red-600">
+          <p className="text-red-600">
             {errors.content?.type === 'required' && 'コメントを入力してください'}
-          </span>
-          <span className={style.error} role="alert">
-            {/* <span className="text-red-600"> */}
+          </p>
+          <p className={style.error} role="alert">
             {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
-          </span>
+          </p>
           {validationKeys.map((key) => (
-            <span key={key} className="text-red-600">
+            <p key={key} className="text-red-600">
               {key === 'isUnique' && '重複しています'}
               {key === 'maxLength' && 'コメントは10文字以内で入力してください'}
-            </span>
+              {key === 'minLength' && 'コメントは15文字以上で入力してください'}
+              {key === 'IsCommentAlreadyExist' && 'コメントはすでに存在しています'}
+            </p>
           ))}
-          <span className="text-red-600">{errors.content?.message}</span>
         </fieldset>
       </div>
       <div className="text-right space-x-2">
