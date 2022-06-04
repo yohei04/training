@@ -3,6 +3,9 @@ import Error from 'next/error';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
+import { z } from 'zod';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CommentEntity, CreateCommentDto } from '../../__generated__';
 import style from './CreateComment.module.css';
@@ -11,11 +14,23 @@ type Props = {
   postId: number;
 };
 
+const schema = z.object({
+  content: z
+    .string()
+    .min(1, { message: '入力してください' })
+    // .min(5, { message: '5文字以上で入力してください' }),
+    .max(10, { message: '10文字以下で入力してください' }),
+  // .email({ message: 'emailを入力してください' }),
+});
+
 export const CreateComment: FC<Props> = ({ postId }) => {
   const queryClient = useQueryClient();
-  const { register, handleSubmit, setError, formState } = useForm<CreateCommentDto>();
+  const { register, handleSubmit, setError, formState } = useForm<CreateCommentDto>({
+    resolver: zodResolver(schema),
+    criteriaMode: 'all',
+  });
   const { errors, isSubmitting } = formState;
-  const validationKeys = Object.keys(errors?.content?.types || []);
+  const contentErrors = errors.content?.types && Object.entries(errors.content?.types);
 
   const { mutate, isLoading } = useMutation(
     (newComment: CreateCommentDto) =>
@@ -31,6 +46,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           const errors = err?.response?.data.errors;
           errors.forEach((error: any) => {
             setError(error.property, {
+              type: 'apiError',
               types: error.constraints,
             });
           });
@@ -58,25 +74,22 @@ export const CreateComment: FC<Props> = ({ postId }) => {
             // className="w-full border-2"
             className={style.root}
             aria-invalid={errors.content ? true : false}
-            {...register('content', {
-              required: true,
-              maxLength: 15,
-            })}
+            {...register('content')}
           />
-          <p className="text-red-600">
-            {errors.content?.type === 'required' && 'コメントを入力してください'}
-          </p>
-          <p className={style.error} role="alert">
-            {errors.content?.type === 'maxLength' && 'コメントは15文字以内で入力してください'}
-          </p>
-          {validationKeys.map((key) => (
-            <p key={key} className="text-red-600">
-              {key === 'isUnique' && '重複しています'}
-              {key === 'maxLength' && 'コメントは10文字以内で入力してください'}
-              {key === 'minLength' && 'コメントは15文字以上で入力してください'}
-              {key === 'IsCommentAlreadyExist' && 'コメントはすでに存在しています'}
-            </p>
-          ))}
+          {errors.content?.type !== 'apiError' &&
+            contentErrors?.map(([type, message]) => (
+              <p className="text-red-600" key={type} role="alert">
+                {message}
+              </p>
+            ))}
+          {errors.content?.type === 'apiError' &&
+            contentErrors?.map(([type, message]) => (
+              <p className="text-red-600" key={type} role="alert">
+                {type === 'maxLength' && 'from api コメントは10文字以内で入力してください'}
+                {type === 'minLength' && 'from api コメントは15文字以上で入力してください'}
+                {type === 'IsCommentAlreadyExist' && 'from api コメントはすでに存在しています'}
+              </p>
+            ))}
         </fieldset>
       </div>
       <div className="text-right space-x-2">
@@ -84,7 +97,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
           className="bg-lime-300 px-4 py-1 disabled:opacity-50"
           type="submit"
           name="post"
-          disabled={isLoading}
+          disabled={isLoading || !!contentErrors}
         >
           投稿
         </button>
@@ -98,3 +111,4 @@ const createComment = (newComment: CreateCommentDto) => {
 };
 
 // https://stackoverflow.com/questions/60270468/throw-same-error-format-as-class-validator-in-nestjs
+// https://jasonwatmore.com/post/2021/09/13/react-hook-form-display-custom-error-message-returned-from-api-request
