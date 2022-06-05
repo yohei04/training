@@ -7,22 +7,55 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CreateTourDto, TourEntity } from '../../__generated__';
+import { FormErrorMessages } from '../form';
 import style from './CreateTour.module.css';
 
 type Props = {};
+
+const tourTypeOptions = ['mountain', 'river', 'sea'] as const;
+const tourTypeOptionsObj = [
+  { value: 'mountain', label: '山' },
+  { value: 'river', label: '川' },
+  { value: 'sea', label: '海' },
+] as const;
+
+const timeTypeOptions = ['week', 'day'] as const;
+const timeTypeOptionsObj = [
+  { value: 'week', label: '週帰り' },
+  { value: 'day', label: '日帰り' },
+] as const;
+const countryOptions = ['jp', 'us', 'ca', 'tw'] as const;
+const countryOptionsObj = [
+  { value: 'jp', label: '日本' },
+  { value: 'us', label: 'アメリカ' },
+  { value: 'ca', label: 'カナダ' },
+  { value: 'tw', label: '台湾' },
+] as const;
+const participantsNumberOptions = [1, 2, 3, 4] as const;
 
 const schema = z.object({
   name: z
     .string()
     .min(1, { message: '入力してください' })
     .max(10, { message: '10文字以下で入力してください' }),
-  tourType: z.string(),
-  timeType: z.string(),
-  country: z.string(),
-  participantsNumber: z.number(),
-  ageLimit: z.number(),
-  description: z.string(),
-  price: z.number(),
+  tourType: z.enum(tourTypeOptions, {
+    errorMap: () => ({ message: '値が不正です' }),
+  }),
+  // tourType: z.union([z.literal('mountain'), z.literal('river')]),
+  timeType: z.enum(timeTypeOptions, {
+    errorMap: () => ({ message: '値が不正です' }),
+  }),
+  country: z.enum(countryOptions, {
+    errorMap: () => ({ message: '値が不正です' }),
+  }),
+  participantsNumber: z.number().refine((n: any) => participantsNumberOptions.includes(n), {
+    message: '値が不正です',
+  }),
+  ageLimit: z
+    .number()
+    .refine((n) => n >= 0 && n <= 100, { message: '0以上100以下で入力してください' }),
+  price: z.number().gte(1, { message: '1以上で入力してください' }),
+  description: z.string().max(50, { message: '50文字以下で入力してください' }),
   size: z.string(),
 });
 
@@ -43,7 +76,6 @@ export const CreateTour: FC<Props> = () => {
     criteriaMode: 'all',
   });
   const { errors, isSubmitting } = formState;
-  const nameErrors = errors.name?.types && Object.entries(errors.name?.types);
 
   const { mutate, isLoading } = useMutation((newTour: CreateTourDto) => createTour(newTour), {
     onSuccess: (data) => {
@@ -80,54 +112,37 @@ export const CreateTour: FC<Props> = () => {
               ツアー名:
             </label>
             <input className={style.input} id="name" {...register('name')} />
-            {errors.name?.type !== 'apiError' &&
-              nameErrors?.map(([type, message]) => (
-                <p className="text-red-600" key={type} role="alert">
-                  {message}
-                </p>
-              ))}
+            <FormErrorMessages property="name" errors={errors} />
           </div>
 
           <div>
             <p>ツアータイプ：</p>
             <div className={style['tour-type']}>
-              <div className={style['radio-button']}>
-                <input type="radio" id="mountain" value="mountain" {...register('tourType')} />
-                <label className={style.label} htmlFor="mountain">
-                  山
-                </label>
-              </div>
-              <div className={style['radio-button']}>
-                <input type="radio" id="river" value="river" {...register('tourType')} />
-                <label className={style.label} htmlFor="river">
-                  川
-                </label>
-              </div>
-              <div className={style['radio-button']}>
-                <input type="radio" id="sea" value="sea" {...register('tourType')} />
-                <label className={style.label} htmlFor="sea">
-                  海
-                </label>
-              </div>
+              {tourTypeOptionsObj.map((tt) => (
+                <div className={style['radio-button']} key={tt.value}>
+                  <input type="radio" id={tt.value} value={tt.value} {...register('tourType')} />
+                  <label className={style.label} htmlFor={tt.value}>
+                    {tt.label}
+                  </label>
+                </div>
+              ))}
             </div>
+            <FormErrorMessages property="tourType" errors={errors} />
           </div>
 
           <div>
             <p>期間タイプ：</p>
             <div className={style['time-type']}>
-              <div className={style.checkbox}>
-                <input type="radio" id="week" value="week" {...register('timeType')} />
-                <label className={style.label} htmlFor="week">
-                  週帰り
-                </label>
-              </div>
-              <div className={style.checkbox}>
-                <input type="radio" id="day" value="day" {...register('timeType')} />
-                <label className={style.label} htmlFor="day">
-                  日帰り
-                </label>
-              </div>
+              {timeTypeOptionsObj.map((tt) => (
+                <div className={style.checkbox} key={tt.value}>
+                  <input type="radio" id={tt.value} value={tt.value} {...register('timeType')} />
+                  <label className={style.label} htmlFor={tt.value}>
+                    {tt.label}
+                  </label>
+                </div>
+              ))}
             </div>
+            <FormErrorMessages property="timeType" errors={errors} />
           </div>
 
           <div>
@@ -135,13 +150,13 @@ export const CreateTour: FC<Props> = () => {
               国：
             </label>
             <select id="country" {...register('country')}>
-              <option value={'jp'}>日本</option>
-              <option value={'usa'}>アメリカ</option>
-              <option value={'ca'}>カナダ</option>
-              <option value={'tw'} disabled>
-                台湾
-              </option>
+              {countryOptionsObj.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
             </select>
+            <FormErrorMessages property="country" errors={errors} />
           </div>
 
           <div>
@@ -152,11 +167,14 @@ export const CreateTour: FC<Props> = () => {
               id="participantsNumber"
               {...register('participantsNumber', { valueAsNumber: true })}
             >
-              <option value={1}>1人</option>
-              <option value={2}>2人</option>
-              <option value={3}>3人</option>
-              <option value={4}>4人</option>
+              {participantsNumberOptions.map((pn) => (
+                <option key={pn} value={pn}>
+                  {pn}
+                </option>
+              ))}
             </select>
+            <span>人</span>
+            <FormErrorMessages property="participantsNumber" errors={errors} />
           </div>
 
           <div>
@@ -168,6 +186,7 @@ export const CreateTour: FC<Props> = () => {
               type="number"
               {...register('ageLimit', { valueAsNumber: true })}
             />
+            <FormErrorMessages property="ageLimit" errors={errors} />
           </div>
 
           <div>
@@ -179,6 +198,7 @@ export const CreateTour: FC<Props> = () => {
               type="number"
               {...register('price', { valueAsNumber: true })}
             />
+            <FormErrorMessages property="price" errors={errors} />
           </div>
 
           <div>
@@ -186,6 +206,7 @@ export const CreateTour: FC<Props> = () => {
               説明：
             </label>
             <textarea className={style.input} {...register('description')} />
+            <FormErrorMessages property="description" errors={errors} />
           </div>
         </fieldset>
         <div className={style['button-wrapper']}>
