@@ -1,9 +1,12 @@
+import { isUniqueConstraint } from 'src/validation/isUnique';
+
 import { Module } from '@nestjs/common';
-import { ToursService } from './tours.service';
+
 import { ToursController } from './tours.controller';
+import { ToursService } from './tours.service';
 
 @Module({
   controllers: [ToursController],
-  providers: [ToursService]
+  providers: [ToursService, isUniqueConstraint],
 })
 export class ToursModule {}
