@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/prizma/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 import { Get, Injectable } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
