@@ -1,11 +1,11 @@
 import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
-import { IsCommentAlreadyExist } from 'src/validation/IsCommentAlreadyExist';
+import { isUnique } from 'src/validation/isUnique';
 
 export class CreateCommentDto {
   @IsNotEmpty()
   @MaxLength(10)
   // @MinLength(15)
-  @IsCommentAlreadyExist()
+  @isUnique({ context: 'comment' })
   content: string;
 
   @IsNotEmpty()

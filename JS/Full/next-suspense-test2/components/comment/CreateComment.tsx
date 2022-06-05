@@ -87,7 +87,7 @@ export const CreateComment: FC<Props> = ({ postId }) => {
               <p className="text-red-600" key={type} role="alert">
                 {type === 'maxLength' && 'from api コメントは10文字以内で入力してください'}
                 {type === 'minLength' && 'from api コメントは15文字以上で入力してください'}
-                {type === 'IsCommentAlreadyExist' && 'from api コメントはすでに存在しています'}
+                {type === 'isUnique' && 'from api コメントはすでに存在しています'}
               </p>
             ))}
         </fieldset>

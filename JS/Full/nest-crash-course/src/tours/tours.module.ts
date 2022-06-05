@@ -7,6 +7,6 @@ import { ToursService } from './tours.service';
 
 @Module({
   controllers: [ToursController],
-  providers: [ToursService, isUniqueConstraint],
+  providers: [ToursService],
 })
 export class ToursModule {}
