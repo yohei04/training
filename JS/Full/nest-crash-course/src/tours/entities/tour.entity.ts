@@ -5,12 +5,12 @@ export class TourEntity implements Tour {
   createdAt: Date;
   updatedAt: Date;
   name: string;
-  tourType: number;
-  timeType: number;
+  tourType: string;
+  timeType: string;
   country: string;
   participantsNumber: number;
   ageLimit: number;
   description: string;
   price: number;
-  size: number;
+  size: string;
 }

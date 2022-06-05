@@ -2,27 +2,27 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateTourDto {
   @IsNotEmpty()
-  name;
+  name: string;
 
   @IsNotEmpty()
-  tourType;
+  tourType: string;
 
   @IsNotEmpty()
-  timeType;
+  timeType: string;
 
   @IsNotEmpty()
-  country;
+  country: string;
 
   @IsNotEmpty()
-  participantsNumber;
+  participantsNumber: number;
 
   @IsNotEmpty()
-  ageLimit;
+  ageLimit: number;
 
-  description;
+  description: string;
 
   @IsNotEmpty()
-  price;
+  price: number;
 
-  size;
+  size: string;
 }

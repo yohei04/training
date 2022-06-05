@@ -46,12 +46,12 @@ model Tour {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   name               String   @unique
-  tourType           Int
-  timeType           Int
+  tourType           String
+  timeType           String
   country            String
   participantsNumber Int
   ageLimit           Int
   description        String?
   price              Int
-  size               Int?
+  size               String?
 }
