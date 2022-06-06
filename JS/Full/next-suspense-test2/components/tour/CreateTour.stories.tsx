@@ -1,17 +1,8 @@
 import { rest } from 'msw';
 
 import { expect } from '@storybook/jest';
-import {
-  ComponentMeta,
-  ComponentStory,
-  ComponentStoryObj,
-} from '@storybook/react';
-import {
-  fireEvent,
-  userEvent,
-  waitFor,
-  within,
-} from '@storybook/testing-library';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 
 import { CreateTour } from './';
 
@@ -63,12 +54,24 @@ export const DuplicatedName: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const name = await canvas.getByLabelText('ツアー名：');
-    userEvent.type(name, 'test');
-    const button = await canvas.findByRole('button');
-    await sleep(0);
+    const name = canvas.getByLabelText('ツアー名：');
+    const button = canvas.getByRole('button');
+
+    await userEvent.type(name, 'test', { delay: 50 });
     userEvent.click(button);
     const errorMessage = await canvas.findByText(mockedErrorMessage);
     expect(errorMessage).toBeInTheDocument();
+  },
+};
+
+export const LongName: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const name = canvas.getByLabelText('ツアー名：');
+    const button = canvas.getByRole('button');
+
+    await userEvent.type(name, 'a'.repeat(11), { delay: 50 });
+    userEvent.click(button);
+    waitFor(() => expect(name).toHaveErrorMessage('10文字以下で入力してください'));
   },
 };

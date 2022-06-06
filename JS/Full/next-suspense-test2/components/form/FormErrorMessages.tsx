@@ -1,9 +1,5 @@
 import { FC } from 'react';
-import {
-  FieldError,
-  MultipleFieldErrors,
-  ValidateResult,
-} from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 
 type Props = {
   property: string;
@@ -19,7 +15,7 @@ export const FormErrorMessages: FC<Props> = ({ errors, property }) => {
     <div>
       {errors.tourType?.type !== 'apiError' &&
         propertyErrors?.map(([type, message]) => (
-          <p className="text-red-600" key={type} role="alert">
+          <p className="text-red-600" key={type} id={`${property}-error`}>
             {message}
           </p>
         ))}

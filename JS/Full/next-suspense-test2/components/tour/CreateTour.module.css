@@ -25,6 +25,11 @@
   transition-duration: 200ms;
 }
 
+.input[aria-invalid='true'] {
+  --border-color: var(--color-red-500);
+  --background-color: var(--color-red-100);
+}
+
 .tour-type,
 .time-type {
   display: flex;

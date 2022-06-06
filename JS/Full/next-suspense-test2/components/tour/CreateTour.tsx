@@ -37,6 +37,7 @@ const schema = z.object({
   name: z
     .string()
     .min(1, { message: '入力してください' })
+    // .min(12, { message: '12文字以上で入力してください' })
     .max(10, { message: '10文字以下で入力してください' }),
   tourType: z.enum(tourTypeOptions, {
     errorMap: () => ({ message: '値が不正です' }),
@@ -111,7 +112,13 @@ export const CreateTour: FC<Props> = () => {
             <label className={style.label} htmlFor="name">
               ツアー名：
             </label>
-            <input className={style.input} id="name" {...register('name')} />
+            <input
+              className={style.input}
+              id="name"
+              aria-invalid={!!errors.name ? 'true' : 'false'}
+              aria-errormessage="name-error"
+              {...register('name')}
+            />
             <FormErrorMessages property="name" errors={errors} />
           </div>
 
