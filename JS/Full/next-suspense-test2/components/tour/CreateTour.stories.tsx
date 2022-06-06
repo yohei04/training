@@ -20,11 +20,13 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const EmptyName: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = await canvas.findByRole('button');
-    await sleep(0);
+    const name = canvas.getByLabelText('ツアー名：');
+    const button = canvas.getByRole('button');
+
+    await userEvent.type(name, '    ', { delay: 50 });
     userEvent.click(button);
-    const errorMessage = await canvas.findByText('入力してください');
-    expect(errorMessage).toBeInTheDocument();
+
+    waitFor(() => expect(name).toHaveErrorMessage('入力してください'));
   },
 };
 

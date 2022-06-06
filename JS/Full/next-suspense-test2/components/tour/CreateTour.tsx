@@ -36,6 +36,7 @@ const participantsNumberOptions = [1, 2, 3, 4] as const;
 const schema = z.object({
   name: z
     .string()
+    .trim()
     .min(1, { message: '入力してください' })
     // .min(12, { message: '12文字以上で入力してください' })
     .max(10, { message: '10文字以下で入力してください' }),

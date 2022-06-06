@@ -19,7 +19,7 @@
   --border-color: var(--color-blue-900);
   --background-color: var(--color-white);
 
-  box-shadow: 0 0 0 3px var(--color-blue-100);
+  box-shadow: 0 0 0 3px var(--color-blue-200);
   outline: 3px solid transparent;
 }
 
