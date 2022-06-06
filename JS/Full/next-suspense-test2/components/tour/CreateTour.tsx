@@ -20,10 +20,10 @@ const tourTypeOptionsObj = [
 ] as const;
 
 const timeTypeOptions = ['week', 'day'] as const;
-const timeTypeOptionsObj = [
-  { value: 'week', label: '週帰り' },
-  { value: 'day', label: '日帰り' },
-] as const;
+// const timeTypeOptionsObj = [
+//   { value: 'week', label: '週帰り' },
+//   { value: 'day', label: '日帰り' },
+// ] as const;
 const countryOptions = ['jp', 'us', 'ca', 'tw'] as const;
 const countryOptionsObj = [
   { value: 'jp', label: '日本' },
@@ -62,7 +62,7 @@ const schema = z.object({
 });
 
 export const CreateTour: FC<Props> = () => {
-  const { register, handleSubmit, setError, formState } = useForm<CreateTourDto>({
+  const { register, handleSubmit, setError, formState, watch } = useForm<CreateTourDto>({
     defaultValues: {
       name: '',
       tourType: 'mountain',
@@ -99,6 +99,14 @@ export const CreateTour: FC<Props> = () => {
       }
     },
   });
+
+  const tourType = watch('tourType');
+  const isWeekDisabled = tourType === 'sea';
+
+  const timeTypeOptionsObj = [
+    { value: 'week', label: '週帰り', isDisabled: isWeekDisabled },
+    { value: 'day', label: '日帰り', isDisabled: false },
+  ] as const;
 
   const onSubmit = (newTour: CreateTourDto) => {
     console.log({ newTour });
@@ -143,7 +151,13 @@ export const CreateTour: FC<Props> = () => {
             <div className={style['time-type']}>
               {timeTypeOptionsObj.map((tt) => (
                 <div className={style.checkbox} key={tt.value}>
-                  <input type="radio" id={tt.value} value={tt.value} {...register('timeType')} />
+                  <input
+                    type="radio"
+                    id={tt.value}
+                    value={tt.value}
+                    disabled={tt.isDisabled}
+                    {...register('timeType')}
+                  />
                   <label className={style.label} htmlFor={tt.value}>
                     {tt.label}
                   </label>

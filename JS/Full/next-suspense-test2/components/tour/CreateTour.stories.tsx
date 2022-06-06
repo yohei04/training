@@ -77,3 +77,18 @@ export const LongName: Story = {
     waitFor(() => expect(name).toHaveErrorMessage('10文字以下で入力してください'));
   },
 };
+
+export const SelectedSea: Story = {
+  name: '海が選択されているときは、週末を選択できない',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const sea = canvas.getByLabelText('海');
+    const week = canvas.getByLabelText('週帰り');
+
+    await sleep(0);
+    userEvent.click(sea);
+
+    expect(sea).toBeChecked();
+    expect(week).toBeDisabled();
+  },
+};
