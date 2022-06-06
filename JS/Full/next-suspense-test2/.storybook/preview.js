@@ -1,4 +1,5 @@
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 import '../styles/globals.css';
 
 export const parameters = {
@@ -12,6 +13,8 @@ export const parameters = {
 };
 
 const queryClient = new QueryClient();
+// Initialize MSW
+initialize();
 
 export const decorators = [
   (Story) => (
@@ -19,4 +22,6 @@ export const decorators = [
       <Story />
     </QueryClientProvider>
   ),
+  // Provide the MSW addon decorator globally
+  mswDecorator,
 ];
