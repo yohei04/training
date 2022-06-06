@@ -109,14 +109,14 @@ export const CreateTour: FC<Props> = () => {
         <fieldset className={style['form-items']}>
           <div>
             <label className={style.label} htmlFor="name">
-              ツアー名:
+              ツアー名：
             </label>
             <input className={style.input} id="name" {...register('name')} />
             <FormErrorMessages property="name" errors={errors} />
           </div>
 
-          <div>
-            <p>ツアータイプ：</p>
+          <fieldset>
+            <legend>ツアータイプ：</legend>
             <div className={style['tour-type']}>
               {tourTypeOptionsObj.map((tt) => (
                 <div className={style['radio-button']} key={tt.value}>
@@ -128,7 +128,7 @@ export const CreateTour: FC<Props> = () => {
               ))}
             </div>
             <FormErrorMessages property="tourType" errors={errors} />
-          </div>
+          </fieldset>
 
           <div>
             <p>期間タイプ：</p>
@@ -177,7 +177,7 @@ export const CreateTour: FC<Props> = () => {
             <FormErrorMessages property="participantsNumber" errors={errors} />
           </div>
 
-          <div>
+          {/* <div>
             <label className={style.label} htmlFor="ageLimit">
               年齢制限：
             </label>
@@ -207,7 +207,7 @@ export const CreateTour: FC<Props> = () => {
             </label>
             <textarea className={style.input} {...register('description')} />
             <FormErrorMessages property="description" errors={errors} />
-          </div>
+          </div> */}
         </fieldset>
         <div className={style['button-wrapper']}>
           <button className={style.button} type="submit" name="post">
