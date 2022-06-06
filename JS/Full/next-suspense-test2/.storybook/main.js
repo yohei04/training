@@ -15,6 +15,9 @@ module.exports = {
       },
     },
   ],
+  features: {
+    interactionsDebugger: true, // 👈 enable playback controls
+  },
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-webpack5',
