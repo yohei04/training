@@ -1,0 +1,8 @@
+.root {
+  --border-color: var(--color-gray-400);
+  --background-color: var(--color-white);
+
+  display: grid;
+  gap: 1rem;
+  background-color: beige;
+}

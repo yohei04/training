@@ -26,6 +26,11 @@ const Home: NextPage = () => {
           </Link>
         </li>
         <li>
+          <Link href={'/tour'}>
+            <a>ツアー一覧</a>
+          </Link>
+        </li>
+        <li>
           <Link href={'/tour/add'}>
             <a>ツアー作成</a>
           </Link>

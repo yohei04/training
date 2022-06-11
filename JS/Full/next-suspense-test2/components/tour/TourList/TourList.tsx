@@ -1,0 +1,30 @@
+import axios from 'axios';
+import { FC } from 'react';
+import { useQuery } from 'react-query';
+
+import { TourEntity } from '../../../__generated__';
+import { sleep } from '../../../function/sleep';
+import { TourItem } from '../list';
+import style from './TourList.module.css';
+
+export const TourList: FC = () => {
+  const { data, isLoading } = useQuery(['tours'], getTours, {
+    suspense: true,
+  });
+
+  return (
+    <ul className={style.root}>
+      {data?.map((tour) => (
+        <li key={tour.id}>
+          <TourItem tour={tour} />
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const getTours = async () => {
+  const data = await axios.get<TourEntity[]>(`http://localhost:4000/tours`);
+  await sleep(1000);
+  return data.data;
+};
