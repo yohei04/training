@@ -116,7 +116,7 @@ export const CreateTour: FC<Props> = () => {
   return (
     <div className={style.root}>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className={style['form-items']}>
+        <fieldset className={style['form-items']} disabled={isLoading}>
           <div>
             <label className={style.label} htmlFor="name">
               ツアー名：
@@ -232,7 +232,7 @@ export const CreateTour: FC<Props> = () => {
           </div> */}
         </fieldset>
         <div className={style['button-wrapper']}>
-          <button className={style.button} type="submit" name="post">
+          <button className={style.button} type="submit" name="post" disabled={isLoading}>
             作成
           </button>
         </div>

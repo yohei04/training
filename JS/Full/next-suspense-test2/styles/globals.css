@@ -23,3 +23,7 @@
   --color-red-300: hsl(0, 100%, 90%);
   --color-red-100: hsl(0, 100%, 95%);
 }
+
+button[disabled] {
+  opacity: 0.5;
+}
