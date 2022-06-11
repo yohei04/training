@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -42,7 +43,8 @@ export class ToursController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.toursService.remove(+id);
+  @ApiOkResponse({ type: TourEntity })
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.toursService.remove(id);
   }
 }

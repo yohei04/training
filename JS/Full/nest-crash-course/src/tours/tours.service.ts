@@ -28,6 +28,6 @@ export class ToursService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} tour`;
+    return this.prisma.tour.delete({ where: { id } });
   }
 }
