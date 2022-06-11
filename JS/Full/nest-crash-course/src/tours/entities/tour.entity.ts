@@ -10,7 +10,7 @@ export class TourEntity implements Tour {
   country: string;
   participantsNumber: number;
   ageLimit: number;
-  description: string;
+  description: string | null;
   price: number;
-  size: string;
+  size: string | null;
 }

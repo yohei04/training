@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateTourDto } from './dto/create-tour.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
@@ -26,6 +26,7 @@ export class ToursController {
   }
 
   @Get()
+  @ApiOkResponse({ type: [TourEntity] })
   findAll() {
     return this.toursService.findAll();
   }

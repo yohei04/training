@@ -16,7 +16,7 @@ export class ToursService {
   }
 
   findAll() {
-    return `This action returns all tours`;
+    return this.prisma.tour.findMany();
   }
 
   findOne(id: number) {
