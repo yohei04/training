@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { z } from 'zod';
 
@@ -84,6 +85,7 @@ export const CreateTour: FC<Props> = () => {
       // queryClient.setQueryData<TourEntity[]>(['tour', postId], (old) =>
       //   old ? [...old, data.data] : []
       // );
+      toast.success('作成しました');
     },
     onError: (err: Error | AxiosError) => {
       if (axios.isAxiosError(err)) {
@@ -97,6 +99,7 @@ export const CreateTour: FC<Props> = () => {
       } else {
         console.error(err);
       }
+      toast.error('作成できませんでした');
     },
   });
 
@@ -115,6 +118,7 @@ export const CreateTour: FC<Props> = () => {
 
   return (
     <div className={style.root}>
+      <Toaster />
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset className={style['form-items']} disabled={isLoading}>
           <div>
