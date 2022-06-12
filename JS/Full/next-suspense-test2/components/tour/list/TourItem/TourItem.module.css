@@ -5,6 +5,7 @@
   background-color: beige;
 }
 
+
 .title {
   font-size: clamp(0.8rem, 1rem + 1vw, 2rem);
   font-weight: bold;

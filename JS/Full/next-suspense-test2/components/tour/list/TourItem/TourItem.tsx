@@ -1,34 +1,20 @@
-import axios from 'axios';
 import { FC } from 'react';
-import toast from 'react-hot-toast';
-import { useMutation, useQueryClient } from 'react-query';
 
 import { TourEntity } from '../../../../__generated__';
 import style from './TourItem.module.css';
+import { useDeleteTour } from './useDeleteTour';
 
 type Props = {
   tour: TourEntity;
 };
 
 export const TourItem: FC<Props> = ({ tour }) => {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation(deleteTour, {
-    onSuccess: () => {
-      queryClient.setQueriesData<TourEntity[]>(['tours'], (old) =>
-        old ? old.filter((t) => t.id !== tour.id) : []
-      );
-      toast.success('削除しました');
-    },
-    onError: () => {
-      toast.error('削除に失敗しました');
-    },
-  });
+  const { mutate, isLoading } = useDeleteTour(tour.id);
 
   return (
     <div className={style.root}>
       <div className="bg-red-600 text-white ml-auto inline-block">
-        <button className="px-2" onClick={() => mutate({ tourId: tour.id })}>
+        <button className="px-2" disabled={isLoading} onClick={() => mutate(tour.id)}>
           x
         </button>
       </div>
@@ -40,8 +26,4 @@ export const TourItem: FC<Props> = ({ tour }) => {
       <p>{tour.description}</p>
     </div>
   );
-};
-
-const deleteTour = ({ tourId }: { tourId: number }) => {
-  return axios.delete<TourEntity>(`http://localhost:4000/tours/${tourId}`);
 };

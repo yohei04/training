@@ -8,7 +8,7 @@ import { sleep } from '../../../../function/sleep';
 import style from './TourList.module.css';
 
 export const TourList: FC = () => {
-  const { data, isLoading } = useQuery(['tours'], getTours, {
+  const { data } = useQuery(['tours'], getTours, {
     suspense: true,
   });
 

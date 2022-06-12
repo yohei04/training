@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-import { CreateTour } from '../../components/tour/CreateTour';
+import { CreateTour } from '../../components/tour/add';
 
 export const AddTourPage: NextPage = () => {
   return (
