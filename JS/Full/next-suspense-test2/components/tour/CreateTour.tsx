@@ -1,4 +1,6 @@
 import axios, { AxiosError } from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
@@ -63,6 +65,7 @@ const schema = z.object({
 });
 
 export const CreateTour: FC<Props> = () => {
+  const router = useRouter();
   const { register, handleSubmit, setError, formState, watch } = useForm<CreateTourDto>({
     defaultValues: {
       name: '',
@@ -86,6 +89,7 @@ export const CreateTour: FC<Props> = () => {
       //   old ? [...old, data.data] : []
       // );
       toast.success('作成しました');
+      router.push('/tour');
     },
     onError: (err: Error | AxiosError) => {
       if (axios.isAxiosError(err)) {
@@ -119,6 +123,10 @@ export const CreateTour: FC<Props> = () => {
   return (
     <div className={style.root}>
       <Toaster />
+      <h2>ツアー作成</h2>
+      <Link href={'/tour'}>
+        <a className="text-blue-500 border-b-2 border-blue-500">ツアー一覧へ</a>
+      </Link>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset className={style['form-items']} disabled={isLoading}>
           <div>

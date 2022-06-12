@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FC } from 'react';
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { TourEntity } from '../../../../__generated__';
@@ -17,6 +18,10 @@ export const TourItem: FC<Props> = ({ tour }) => {
       queryClient.setQueriesData<TourEntity[]>(['tours'], (old) =>
         old ? old.filter((t) => t.id !== tour.id) : []
       );
+      toast.success('削除しました');
+    },
+    onError: () => {
+      toast.error('削除に失敗しました');
     },
   });
 
