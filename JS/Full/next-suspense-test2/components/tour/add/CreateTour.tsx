@@ -1,16 +1,16 @@
 import axios, { AxiosError } from 'axios';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CreateTourDto, TourEntity } from '../../../__generated__';
 import { FormErrorMessages } from '../../form';
+import { Link } from '../../link';
 import style from './CreateTour.module.css';
 
 type Props = {};
@@ -124,9 +124,7 @@ export const CreateTour: FC<Props> = () => {
     <div className={style.root}>
       <Toaster />
       <h2>ツアー作成</h2>
-      <Link href={'/tour'}>
-        <a className="text-blue-500 border-b-2 border-blue-500">ツアー一覧へ</a>
-      </Link>
+      <Link href={'/tour/add'}>ツアー一覧へ</Link>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset className={style['form-items']} disabled={isLoading}>
           <div>
