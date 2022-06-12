@@ -16,7 +16,7 @@ export const TourList: FC = () => {
     <ul className={style.root}>
       {data?.map((tour) => (
         <li key={tour.id}>
-          <TourItem tour={tour} />
+          <TourItem {...tour} />
         </li>
       ))}
     </ul>

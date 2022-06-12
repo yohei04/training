@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import {
   MutationCache,
   QueryCache,
