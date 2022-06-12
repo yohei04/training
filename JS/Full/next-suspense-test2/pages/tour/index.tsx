@@ -6,7 +6,6 @@ import { TourListTemplate } from '../../components/tour/list';
 const TourListPage: NextPage = () => {
   return (
     <>
-      <Toaster />
       <TourListTemplate />
     </>
   );

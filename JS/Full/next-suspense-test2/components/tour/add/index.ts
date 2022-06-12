@@ -1,1 +1,2 @@
-export * from './CreateTour';
+export * from './CreateTourTemplate';
+export * from './CreateTourForm/CreateTourForm';

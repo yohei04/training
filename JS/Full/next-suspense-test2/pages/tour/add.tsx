@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 
-import { CreateTour } from '../../components/tour/add';
+import { CreateTourTemplate } from '../../components/tour/add';
 
 export const AddTourPage: NextPage = () => {
   return (
-    <div>
-      <CreateTour />
-    </div>
+    <>
+      <CreateTourTemplate />
+    </>
   );
 };
 

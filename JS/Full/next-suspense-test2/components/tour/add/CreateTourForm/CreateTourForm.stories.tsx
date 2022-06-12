@@ -4,14 +4,14 @@ import { expect } from '@storybook/jest';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 
-import { CreateTour } from './';
+import { CreateTourForm } from '../';
 
 export default {
   // title: 'Example/Button',
-  component: CreateTour,
-} as ComponentMeta<typeof CreateTour>;
+  component: CreateTourForm,
+} as ComponentMeta<typeof CreateTourForm>;
 
-type Story = ComponentStoryObj<typeof CreateTour>;
+type Story = ComponentStoryObj<typeof CreateTourForm>;
 
 export const Default: Story = {};
 
