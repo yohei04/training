@@ -25,8 +25,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
+# env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -36,3 +37,6 @@ yarn-error.log*
 
 # openapi
 /__generated__
+
+# Storybook
+build-storybook.log
