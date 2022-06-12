@@ -7,7 +7,7 @@ export const TourListTemplate: FC = () => {
   return (
     <section>
       <h2>ツアー一覧</h2>
-      <div className='space-x-5 mb-10'>
+      <div className="space-x-5 mb-10">
         <Link href={'/tour/add'}>
           <a className="text-blue-500 border-b-2 border-blue-500">ツアー作成へ</a>
         </Link>

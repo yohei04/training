@@ -2,9 +2,9 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 
-import { TourEntity } from '../../../__generated__';
-import { sleep } from '../../../function/sleep';
-import { TourItem } from '../list';
+import { TourItem } from '../';
+import { TourEntity } from '../../../../__generated__';
+import { sleep } from '../../../../function/sleep';
 import style from './TourList.module.css';
 
 export const TourList: FC = () => {

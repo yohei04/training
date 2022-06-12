@@ -9,8 +9,8 @@ import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { CreateTourDto, TourEntity } from '../../__generated__';
-import { FormErrorMessages } from '../form';
+import { CreateTourDto, TourEntity } from '../../../__generated__';
+import { FormErrorMessages } from '../../form';
 import style from './CreateTour.module.css';
 
 type Props = {};
