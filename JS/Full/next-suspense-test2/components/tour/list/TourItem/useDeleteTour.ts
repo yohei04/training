@@ -18,8 +18,5 @@ export const useDeleteTour = (tourId: number) => {
       );
       toast.success('削除しました');
     },
-    onError: () => {
-      toast.error('削除に失敗しました');
-    },
   });
 };
