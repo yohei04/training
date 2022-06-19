@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.root input:checked + label {
+  text-decoration: line-through;
+  color: var(--color-gray-300);
+}
