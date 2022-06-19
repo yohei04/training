@@ -35,6 +35,11 @@ const Home: NextPage = () => {
             <a>ツアー作成</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/todo'}>
+            <a>TODO一覧</a>
+          </Link>
+        </li>
       </ul>
     </div>
   );
