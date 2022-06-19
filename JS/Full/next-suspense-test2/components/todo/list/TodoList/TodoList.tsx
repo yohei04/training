@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { Todo, TodoItem } from '../';
 
@@ -6,7 +6,8 @@ type Props = {
   todos: Todo[];
 };
 
-export const TodoList: FC<Props> = ({ todos }) => {
+export const TodoList: FC<Props> = memo(({ todos }) => {
+  console.log('れんだーTodoList');
   return (
     <ul>
       {todos.map((todo) => (
@@ -14,4 +15,6 @@ export const TodoList: FC<Props> = ({ todos }) => {
       ))}
     </ul>
   );
-};
+});
+
+TodoList.displayName = 'TodoList';
