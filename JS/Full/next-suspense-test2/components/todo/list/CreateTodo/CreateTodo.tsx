@@ -19,7 +19,7 @@ export const CreateTodo: FC<Props> = memo(({ addTodo }) => {
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      <button>ボタン</button>
+      <button type="submit">追加</button>
     </form>
   );
 });
