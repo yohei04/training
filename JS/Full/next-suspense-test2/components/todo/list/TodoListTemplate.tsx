@@ -54,13 +54,17 @@ export const TodoListTemplate: FC = () => {
     );
   }, []);
 
+  const deleteTodo = useCallback((id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  }, []);
+
   return (
     <section className="p-5">
       <CreateTodo addTodo={addTodo} />
       {/* <TodoList todos={todos} /> */}
       <ul>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
+          <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
         ))}
       </ul>
     </section>
