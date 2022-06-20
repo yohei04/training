@@ -1,6 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 
 import { CreateTodo, TodoItem, TodoList } from './';
+import { CounterList } from './Counter';
 
 const initTodos = [
   {
@@ -84,6 +85,7 @@ export const TodoListTemplate: FC = () => {
           />
         ))}
       </ul>
+      <CounterList />
     </section>
   );
 };
