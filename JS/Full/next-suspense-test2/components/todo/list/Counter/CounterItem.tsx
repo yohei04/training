@@ -1,14 +1,18 @@
 import { FC, memo } from 'react';
 
 type Props = {
-  counter: number;
+  objCounter: {
+    id: number;
+    name: string;
+    counter: number;
+  };
   children: React.ReactNode;
 };
 
-export const CounterItem: FC<Props> = memo(({ counter, children }) => {
+export const CounterItem: FC<Props> = memo(({ objCounter, children }) => {
   return (
     <div>
-      {children}: {counter}
+      {children}: {objCounter.counter}
     </div>
   );
 });

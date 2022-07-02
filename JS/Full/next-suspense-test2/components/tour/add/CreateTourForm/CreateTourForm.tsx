@@ -92,6 +92,8 @@ export const CreateTourForm: FC = () => {
     mutate(newTour);
   };
 
+  console.log({ errors });
+
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
       <fieldset className={style['form-items']} disabled={isLoading}>
@@ -106,7 +108,7 @@ export const CreateTourForm: FC = () => {
             aria-errormessage="name-error"
             {...register('name')}
           />
-          <FormErrorMessages property="name" errors={errors} />
+          {errors.name && <FormErrorMessages property="name" errors={errors} />}
         </div>
 
         <fieldset>

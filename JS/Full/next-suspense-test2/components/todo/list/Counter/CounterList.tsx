@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 import { CounterItem } from './';
 
@@ -24,15 +24,19 @@ export const CounterList: FC = () => {
     []
   );
 
+  // const memoedObjCounter = useMemo(() => objCounter, [objCounter]);
+
+  // const name = useMemo(() => memoedObjCounter.name, [memoedObjCounter.name]);
+
   return (
     <div>
-      <div className="p-5">
+      {/* <div className="p-5">
         <CounterItem counter={counter}>普通のカウンター</CounterItem>
         <button onClick={handleUp}>+</button>
-      </div>
+      </div> */}
 
       <div className="p-5">
-        <CounterItem {...objCounter}>オブジェクトのカウンター</CounterItem>
+        <CounterItem objCounter={objCounter}>オブジェクトのカウンター</CounterItem>
         <button onClick={handleObjUp}>+</button>
       </div>
 
