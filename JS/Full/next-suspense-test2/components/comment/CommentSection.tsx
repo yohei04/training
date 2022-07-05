@@ -10,10 +10,11 @@ import {
 import { Spinner } from '../spinner';
 
 type Props = {
-  children: ReactNode;
+  create: ReactNode;
+  list: ReactNode;
 };
 
-export const CommentSection: FC<Props> = ({ children }) => {
+export const CommentSection: FC<Props> = ({ create, list }) => {
   const [isShowComment, setIsShowComment] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -28,7 +29,8 @@ export const CommentSection: FC<Props> = ({ children }) => {
       <p style={{ cursor: 'pointer', opacity: isPending ? 0.5 : 1 }} onClick={handleShowComment}>
         コメント表示
       </p>
-      <Suspense fallback={<Spinner />}>{isShowComment && children}</Suspense>
+      {isShowComment && create}
+      <Suspense fallback={<Spinner />}>{isShowComment && list}</Suspense>
     </section>
   );
 };

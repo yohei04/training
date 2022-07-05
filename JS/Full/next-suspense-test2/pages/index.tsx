@@ -25,6 +25,21 @@ const Home: NextPage = () => {
             <a>投稿一覧（ネストなし）</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/tour'}>
+            <a>ツアー一覧</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/tour/add'}>
+            <a>ツアー作成</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/todo'}>
+            <a>TODO一覧</a>
+          </Link>
+        </li>
       </ul>
     </div>
   );

@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
@@ -10,9 +10,18 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createPostDto: Prisma.PostCreateInput) {
+  create(createPostDto: CreatePostDto) {
+    const { title, body, userId } = createPostDto;
     return this.prisma.post.create({
-      data: createPostDto,
+      data: {
+        title,
+        body,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
     });
   }
 
@@ -20,9 +29,22 @@ export class PostsService {
     return this.prisma.post.findMany();
   }
 
-  findOne(postWhereUniqueInput: Prisma.PostWhereUniqueInput) {
+  findById(postWhereUniqueInput: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findUnique({
       where: postWhereUniqueInput,
+    });
+  }
+
+  findAllByUserId(userId: Prisma.PostWhereInput) {
+    return this.prisma.post.findMany({
+      where: userId,
+    });
+  }
+
+  findFilteredPosts(params: { where: Prisma.PostWhereInput }) {
+    const { where } = params;
+    return this.prisma.post.findMany({
+      where,
     });
   }
 
@@ -34,6 +56,6 @@ export class PostsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`;
+    return this.prisma.post.delete({ where: { id } });
   }
 }

@@ -2,11 +2,11 @@ import axios from 'axios';
 import { FC, ReactNode } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
+import { PostEntity } from '../../__generated__';
 import { Like } from '../../types/like';
-import { Post } from '../../types/post';
 
 type Props = {
-  post: Post;
+  post: PostEntity;
   children: ReactNode;
 };
 
@@ -19,7 +19,7 @@ export const PostItem2: FC<Props> = ({ post, children }) => {
 
   const { mutate: deletePostMutation } = useMutation(deletePost, {
     onSuccess: () => {
-      queryClient.setQueriesData<Post[]>(['userPosts', post.userId], (old) =>
+      queryClient.setQueriesData<PostEntity[]>(['userPosts', post.userId], (old) =>
         old ? old.filter((p) => p.id !== post.id) : []
       );
     },
@@ -47,5 +47,5 @@ export const PostItem2: FC<Props> = ({ post, children }) => {
 // };
 
 const deletePost = ({ postId }: { postId: number }) => {
-  return axios.delete<Post>(`http://localhost:4000/posts/${postId}`);
+  return axios.delete<PostEntity>(`http://localhost:4000/posts/${postId}`);
 };

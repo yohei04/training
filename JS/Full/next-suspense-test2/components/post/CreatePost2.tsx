@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { Post } from '../../types/post';
+import { CreatePostDto, PostEntity } from '../../__generated__';
 import { Spinner } from '../spinner';
 import { usePost } from './';
 
@@ -16,8 +16,9 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
 
   const { mutate: updateFromResponse, isLoading } = useMutation(createPost, {
     onSuccess: (data) => {
+      console.log({ data });
       // queryClient.invalidateQueries(['userPosts', userId]);
-      queryClient.setQueryData<Post[]>(['userPosts', userId], (old) =>
+      queryClient.setQueryData<PostEntity[]>(['userPosts', userId], (old) =>
         old ? [data.data, ...old] : []
       );
     },
@@ -28,7 +29,7 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
 
   const { mutate: optimisticUpdates } = useMutation(createPost, {
     // When mutate is called:
-    onMutate: async (newPost: CreatePostDTO) => {
+    onMutate: async (newPost: CreatePostDto) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries(['userPosts', userId]);
 
@@ -36,8 +37,18 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
       const previousPosts = queryClient.getQueryData(['userPosts', userId]);
 
       // Optimistically update to the new value
-      queryClient.setQueryData<Post[]>(['userPosts', userId], (old) =>
-        old ? [{ id: old.length + 1, ...newPost }, ...old] : []
+      queryClient.setQueryData<PostEntity[]>(['userPosts', userId], (old) =>
+        old
+          ? [
+              {
+                id: old.length + 1,
+                createdAt: new Date() as unknown as string,
+                updatedAt: new Date() as unknown as string,
+                ...newPost,
+              },
+              ...old,
+            ]
+          : []
       );
       // Return a context object with the snapshotted value
       return { previousPosts };
@@ -113,12 +124,6 @@ export const CreatePost2: FC<Props> = ({ userId }) => {
   );
 };
 
-type CreatePostDTO = {
-  userId: number;
-  title: string;
-  body: string;
-};
-
-const createPost = (newPost: CreatePostDTO) => {
-  return axios.post<Post>('http://localhost:4000/posts', newPost);
+const createPost = (newPost: CreatePostDto) => {
+  return axios.post<PostEntity>('http://localhost:4000/posts', newPost);
 };
