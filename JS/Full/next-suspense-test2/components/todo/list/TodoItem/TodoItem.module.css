@@ -1,0 +1,36 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.checkbox input:checked + label {
+  text-decoration: line-through;
+  color: var(--color-gray-300);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button__edit {
+  padding: 0.1em 0.4em;
+}
+
+.button__danger {
+  --button-color: var(--color-red-900);
+  --border-color: var(--button-color);
+
+  padding: 0.1em 0.4em;
+  background-color: var(--button-color);
+  color: var(--color-white);
+}
