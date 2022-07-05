@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.3rem;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 100;
+  box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
+}
+
+.header__left {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.header__left .logo {
+  height: 40px;
+}
+
+.header__input {
+  display: flex;
+  align-items: center;
+  background: #eff2f5;
+  margin-left: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 999px;
+}
+
+.header__input input {
+  border: none;
+  background: transparent;
+  outline-width: 0;
+}
+
+.user__avatar {
+  height: 45px;
+  border-radius: 50%;
+}
